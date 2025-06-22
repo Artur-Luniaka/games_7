@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Catalog - PixelVault Gaming Store</title>
+    <meta
+      name="description"
+      content="Browse our complete collection of PC and Xbox games. Filter by genre, platform, price, and more."
+    />
+    <link rel="stylesheet" href="assets/styles/core-styles.css" />
+    <link rel="stylesheet" href="assets/styles/header-styles.css" />
+    <link rel="stylesheet" href="assets/styles/footer-styles.css" />
+    <link rel="stylesheet" href="assets/styles/catalog-page.css" />
+  </head>
+  <body>
+    <div id="header-container"></div>
+
+    <main class="catalog-page-main">
+      <div class="catalog-page-container">
+        <div class="catalog-page-header">
+          <h1 class="catalog-page-title">Game Catalog</h1>
+          <p class="catalog-page-subtitle">
+            Discover our complete collection of PC and Xbox games
+          </p>
+        </div>
+
+        <div class="catalog-content">
+          <aside class="catalog-filters">
+            <div class="filter-section">
+              <h3>Search</h3>
+              <div class="search-box">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="Search games..."
+                />
+                <button id="search-btn">🔍</button>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h3>Platform</h3>
+              <div class="filter-options">
+                <label class="filter-option">
+                  <input type="checkbox" value="PC" checked />
+                  <span class="checkmark"></span>
+                  PC
+                </label>
+                <label class="filter-option">
+                  <input type="checkbox" value="Xbox" checked />
+                  <span class="checkmark"></span>
+                  Xbox
+                </label>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h3>Genre</h3>
+              <div class="filter-options" id="genre-filters">
+                <!-- Genre filters will be loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h3>Price Range</h3>
+              <div class="price-range">
+                <input
+                  type="range"
+                  id="price-slider"
+                  min="0"
+                  max="100"
+                  value="100"
+                />
+                <div class="price-labels">
+                  <span>$0</span>
+                  <span id="price-value">$100+</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h3>Rating</h3>
+              <div class="filter-options">
+                <label class="filter-option">
+                  <input type="checkbox" value="4.5" />
+                  <span class="checkmark"></span>
+                  ⭐⭐⭐⭐⭐ 4.5+
+                </label>
+                <label class="filter-option">
+                  <input type="checkbox" value="4.0" />
+                  <span class="checkmark"></span>
+                  ⭐⭐⭐⭐ 4.0+
+                </label>
+                <label class="filter-option">
+                  <input type="checkbox" value="3.5" />
+                  <span class="checkmark"></span>
+                  ⭐⭐⭐ 3.5+
+                </label>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h3>Availability</h3>
+              <div class="filter-options">
+                <label class="filter-option">
+                  <input type="checkbox" value="on-sale" />
+                  <span class="checkmark"></span>
+                  On Sale
+                </label>
+                <label class="filter-option">
+                  <input type="checkbox" value="new-release" />
+                  <span class="checkmark"></span>
+                  New Releases
+                </label>
+                <label class="filter-option">
+                  <input type="checkbox" value="pre-order" />
+                  <span class="checkmark"></span>
+                  Pre-Order
+                </label>
+              </div>
+            </div>
+
+            <div class="filter-actions">
+              <button class="clear-filters-btn" id="clear-filters">
+                Clear All Filters
+              </button>
+              <button class="apply-filters-btn primary-btn" id="apply-filters">
+                Apply Filters
+              </button>
+            </div>
+          </aside>
+
+          <div class="catalog-main">
+            <div class="catalog-toolbar">
+              <div class="results-info">
+                <span id="results-count">0</span> games found
+              </div>
+
+              <div class="sort-options">
+                <label for="sort-select">Sort by:</label>
+                <select id="sort-select">
+                  <option value="relevance">Relevance</option>
+                  <option value="name-asc">Name A-Z</option>
+                  <option value="name-desc">Name Z-A</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="rating">Highest Rated</option>
+                  <option value="release-date">Release Date</option>
+                </select>
+              </div>
+
+              <div class="view-options">
+                <button
+                  class="view-btn active"
+                  data-view="grid"
+                  title="Grid View"
+                >
+                  ⊞
+                </button>
+                <button class="view-btn" data-view="list" title="List View">
+                  ☰
+                </button>
+              </div>
+            </div>
+
+            <div class="catalog-grid" id="catalog-grid">
+              <!-- Games will be loaded dynamically -->
+            </div>
+
+            <div class="catalog-pagination">
+              <button class="pagination-btn" id="prev-page" disabled>
+                ← Previous
+              </button>
+              <div class="page-numbers" id="page-numbers">
+                <!-- Page numbers will be generated dynamically -->
+              </div>
+              <button class="pagination-btn" id="next-page">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-features">
+          <div class="feature-card">
+            <div class="feature-icon">🎮</div>
+            <h3>Huge Selection</h3>
+            <p>Browse hundreds of games across all genres and platforms</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Instant Download</h3>
+            <p>Get your games immediately after purchase</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Secure Shopping</h3>
+            <p>Safe and encrypted payment processing</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Easy Returns</h3>
+            <p>30-day money-back guarantee on all purchases</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer-container"></div>
+    <div id="notification-container"></div>
+
+    <script
+      type="module"
+      src="assets/scripts/modules/header-module.js"
+    ></script>
+    <script
+      type="module"
+      src="assets/scripts/modules/footer-module.js"
+    ></script>
+    <script
+      type="module"
+      src="assets/scripts/modules/cart-management.js"
+    ></script>
+    <script
+      type="module"
+      src="assets/scripts/modules/notification-system.js"
+    ></script>
+    <script type="module" src="assets/scripts/modules/catalog-page.js"></script>
+  </body>
+</html>

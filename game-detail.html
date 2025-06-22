@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Title - PixelVault Gaming Store</title>
+    <meta
+      name="description"
+      content="Discover detailed information about this amazing game. View screenshots, system requirements, and purchase options."
+    />
+    <link rel="stylesheet" href="assets/styles/core-styles.css" />
+    <link rel="stylesheet" href="assets/styles/header-styles.css" />
+    <link rel="stylesheet" href="assets/styles/footer-styles.css" />
+    <link rel="stylesheet" href="assets/styles/cart-styles.css" />
+    <link rel="stylesheet" href="assets/styles/game-detail.css" />
+  </head>
+  <body>
+    <div id="header-container"></div>
+
+    <main class="game-detail-main">
+      <div class="game-detail-container">
+        <div class="game-detail-header">
+          <nav class="breadcrumb-nav">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="#" class="category-link">Category</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="current-game">Game Title</span>
+          </nav>
+        </div>
+
+        <div class="game-detail-content">
+          <div class="game-media-section">
+            <div class="game-main-image">
+              <img src="" alt="Game Title" id="game-main-image" />
+              <div class="game-image-overlay">
+                <button class="play-trailer-btn" id="play-trailer-btn">
+                  <span class="play-icon">▶</span>
+                  Watch Trailer
+                </button>
+              </div>
+            </div>
+            <div class="game-screenshots" id="game-screenshots">
+              <!-- Screenshots will be loaded dynamically -->
+            </div>
+          </div>
+
+          <div class="game-info-section">
+            <div class="game-header">
+              <h1 class="game-title" id="game-title">Game Title</h1>
+              <div class="game-meta">
+                <span class="game-developer" id="game-developer"
+                  >Developer</span
+                >
+                <span class="game-publisher" id="game-publisher"
+                  >Publisher</span
+                >
+                <span class="game-release-date" id="game-release-date"
+                  >Release Date</span
+                >
+              </div>
+              <div class="game-rating">
+                <div class="stars" id="game-stars">
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                </div>
+                <span class="rating-text" id="rating-text">4.5/5</span>
+              </div>
+            </div>
+
+            <div class="game-description" id="game-description">
+              <p>Game description will be loaded here...</p>
+            </div>
+
+            <div class="game-features" id="game-features">
+              <h3>Key Features</h3>
+              <ul class="features-list">
+                <!-- Features will be loaded dynamically -->
+              </ul>
+            </div>
+
+            <div class="game-platforms" id="game-platforms">
+              <h3>Available Platforms</h3>
+              <div class="platform-badges">
+                <!-- Platform badges will be loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="game-genres" id="game-genres">
+              <h3>Genres</h3>
+              <div class="genre-tags">
+                <!-- Genre tags will be loaded dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <div class="game-purchase-section">
+            <div class="purchase-card">
+              <div class="price-section">
+                <div class="current-price" id="current-price">$59.99</div>
+                <div class="original-price" id="original-price">$79.99</div>
+                <div class="discount-badge" id="discount-badge">-25%</div>
+              </div>
+
+              <div class="purchase-actions">
+                <button
+                  class="add-to-cart-btn primary-btn"
+                  id="add-to-cart-btn"
+                >
+                  <span class="cart-icon">🛒</span>
+                  Add to Cart
+                </button>
+                <button class="wishlist-btn secondary-btn" id="wishlist-btn">
+                  <span class="heart-icon">❤</span>
+                  Add to Wishlist
+                </button>
+              </div>
+
+              <div class="purchase-info">
+                <div class="info-item">
+                  <span class="info-icon">📦</span>
+                  <span>Digital Download</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-icon">⚡</span>
+                  <span>Instant Access</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-icon">🔄</span>
+                  <span>30-Day Refund</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-details-tabs">
+          <div class="tabs-navigation">
+            <button class="tab-btn active" data-tab="requirements">
+              System Requirements
+            </button>
+            <button class="tab-btn" data-tab="reviews">Reviews</button>
+            <button class="tab-btn" data-tab="related">Related Games</button>
+          </div>
+
+          <div class="tab-content">
+            <div class="tab-panel active" id="requirements-panel">
+              <div class="system-requirements">
+                <div class="requirements-section">
+                  <h3>Minimum Requirements</h3>
+                  <div class="requirements-list" id="min-requirements">
+                    <!-- Minimum requirements will be loaded dynamically -->
+                  </div>
+                </div>
+                <div class="requirements-section">
+                  <h3>Recommended Requirements</h3>
+                  <div class="requirements-list" id="rec-requirements">
+                    <!-- Recommended requirements will be loaded dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="reviews-panel">
+              <div class="reviews-section">
+                <div class="reviews-header">
+                  <h3>Player Reviews</h3>
+                  <div class="reviews-summary">
+                    <div class="overall-rating">
+                      <span class="rating-number">4.5</span>
+                      <div class="rating-stars">★★★★★</div>
+                      <span class="total-reviews">Based on 1,234 reviews</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="reviews-list" id="reviews-list">
+                  <!-- Reviews will be loaded dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="related-panel">
+              <div class="related-games" id="related-games">
+                <!-- Related games will be loaded dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <div id="notification-container"></div>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">&times;</button>
+        <div class="video-container">
+          <iframe
+            id="trailer-video"
+            src=""
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script
+      type="module"
+      src="assets/scripts/modules/header-module.js"
+    ></script>
+    <script
+      type="module"
+      src="assets/scripts/modules/footer-module.js"
+    ></script>
+    <script
+      type="module"
+      src="assets/scripts/modules/cart-management.js"
+    ></script>
+    <script
+      type="module"
+      src="assets/scripts/modules/notification-system.js"
+    ></script>
+    <script type="module" src="assets/scripts/modules/game-detail.js"></script>
+  </body>
+</html>
