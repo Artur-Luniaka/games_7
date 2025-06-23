@@ -670,6 +670,48 @@
 }
 
 @media (max-width: 480px) {
+  .contact-page-container {
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 0 12px;
+  }
+  .contact-content,
+  .contact-info-card,
+  .contact-form-section,
+  .office-hours-card,
+  .contact-form-card,
+  .contact-form {
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .contact-info-card,
+  .contact-form-section,
+  .office-hours-card {
+    padding: 0.7rem 12px;
+    margin-bottom: 0.7rem;
+  }
+  .contact-form-card h2,
+  .contact-info-card h2 {
+    font-size: 1.1rem;
+  }
+  .map-section {
+    margin-top: 1rem;
+  }
+  .map-container {
+    padding: 0;
+    margin: 0;
+  }
+  .map-container iframe {
+    height: 150px;
+    border-radius: 10px;
+  }
+
   .contact-page-title {
     font-size: 2rem;
   }
@@ -678,34 +720,24 @@
     font-size: 1rem;
   }
 
-  .contact-info-card,
-  .contact-form-section,
-  .office-hours-card {
-    padding: 1.5rem;
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .contact-method {
+    padding: 1rem;
   }
 
-  .contact-form-card h2,
-  .contact-info-card h2 {
+  .method-icon {
+    width: 50px;
+    height: 50px;
     font-size: 1.5rem;
-  }
-
-  .method-content h3 {
-    font-size: 1rem;
-  }
-
-  .hours-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
   }
 
   .submit-btn {
     padding: 1rem 1.5rem;
     font-size: 1rem;
-  }
-
-  .map-container iframe {
-    height: 250px;
   }
 }
 
