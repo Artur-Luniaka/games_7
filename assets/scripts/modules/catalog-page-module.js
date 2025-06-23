@@ -314,29 +314,31 @@ const catalogPageModule = {
   },
 
   handleAddToCart(gameId, button) {
-    const gameData = this.gamesData.find((game) => game.id === gameId);
-    if (!gameData) return;
+    const game = this.gamesData.find((g) => g.id === gameId);
+    if (!game) return;
 
-    // Add loading state
+    // Set processing state WITH icon
     button.innerHTML =
-      '<span class="btn-icon">⏳</span><span class="btn-text">Adding...</span>';
+      '<span class="btn-icon">⏳</span><span class="btn-text">Processing...</span>';
     button.disabled = true;
 
-    // Simulate API call
+    // Simulate API call and adding to cart
     setTimeout(() => {
       // Import header module to add to cart
       import("./header-module.js").then((module) => {
         const headerModule = module.default;
-        headerModule.addToCart(gameData);
+        headerModule.addToCart(game);
 
-        // Reset button
+        // Update button to "Added!"
         button.innerHTML =
           '<span class="btn-icon">✅</span><span class="btn-text">Added!</span>';
 
+        // Revert button text after a delay
         setTimeout(() => {
+          button.disabled = false;
+          // Important: restore original structure
           button.innerHTML =
             '<span class="btn-icon">🛒</span><span class="btn-text">Add to Cart</span>';
-          button.disabled = false;
         }, 1500);
       });
     }, 500);

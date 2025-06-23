@@ -232,7 +232,7 @@ const headerModule = {
 
     this.saveCartToStorage();
     this.updateCartCounter();
-    this.showAddToCartNotification(gameData.title);
+    // this.showAddToCartNotification(gameData.title); // Уведомление отключено
   },
 
   removeFromCart(gameId) {
