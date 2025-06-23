@@ -222,6 +222,32 @@
 
     <div id="footer-container"></div>
 
+    <!-- Cookie Bar -->
+    <div id="cookie-bar" class="cookie-bar" style="display: none">
+      <div class="cookie-bar-content">
+        <span class="cookie-bar-text">
+          We use cookies to enhance your experience and personalize content. By
+          continuing to browse, you agree to our use of cookies.
+        </span>
+        <button id="cookie-accept-btn" class="cookie-accept-btn primary-btn">
+          Accept
+        </button>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const bar = document.getElementById("cookie-bar");
+        const btn = document.getElementById("cookie-accept-btn");
+        if (!localStorage.getItem("cookieAccepted")) {
+          bar.style.display = "block";
+        }
+        btn.addEventListener("click", function () {
+          localStorage.setItem("cookieAccepted", "true");
+          bar.style.display = "none";
+        });
+      });
+    </script>
+
     <!-- Scripts -->
     <script
       type="module"

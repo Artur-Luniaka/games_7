@@ -232,13 +232,13 @@
   overflow: hidden;
   max-height: 0;
   visibility: hidden;
-  transition: max-height 0.5s ease, visibility 0.5s ease;
+  transition: max-height 0.5s cubic-bezier(0.4, 0.2, 0.2, 1), visibility 0.5s;
   z-index: 1000;
 }
 
 .mobile-menu.mobile-menu-open {
   visibility: visible;
-  max-height: 300px; /* A height large enough to show all items */
+  max-height: 600px;
 }
 
 .mobile-nav-menu {
