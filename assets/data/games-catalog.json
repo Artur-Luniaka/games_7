@@ -25,13 +25,7 @@
         }
       },
       "media": {
-        "cover_image": "game-1.jpg",
-        "screenshots": [
-          "cyberpunk-screenshot-1.jpg",
-          "cyberpunk-screenshot-2.jpg",
-          "cyberpunk-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=cyberpunk-phantom-liberty"
+        "cover_image": "game-1.jpg"
       },
       "tags": ["Open World", "Story Rich", "RPG", "Cyberpunk", "Action"]
     },
@@ -60,13 +54,7 @@
         }
       },
       "media": {
-        "cover_image": "game-2.jpg",
-        "screenshots": [
-          "starfield-screenshot-1.jpg",
-          "starfield-screenshot-2.jpg",
-          "starfield-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=starfield"
+        "cover_image": "game-2.jpg"
       },
       "tags": ["Space", "RPG", "Open World", "Sci-Fi", "Exploration"]
     },
@@ -95,13 +83,7 @@
         }
       },
       "media": {
-        "cover_image": "game-3.jpg",
-        "screenshots": [
-          "bg3-screenshot-1.jpg",
-          "bg3-screenshot-2.jpg",
-          "bg3-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=baldurs-gate-3"
+        "cover_image": "game-3.jpg"
       },
       "tags": ["RPG", "Fantasy", "Turn-Based", "Story Rich", "Co-op"]
     },
@@ -130,13 +112,7 @@
         }
       },
       "media": {
-        "cover_image": "game-4.jpg",
-        "screenshots": [
-          "mk1-screenshot-1.jpg",
-          "mk1-screenshot-2.jpg",
-          "mk1-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=mortal-kombat-1"
+        "cover_image": "game-4.jpg"
       },
       "tags": ["Fighting", "Gore", "Action", "Multiplayer", "Story Rich"]
     },
@@ -165,13 +141,7 @@
         }
       },
       "media": {
-        "cover_image": "game-5.jpg",
-        "screenshots": [
-          "aw2-screenshot-1.jpg",
-          "aw2-screenshot-2.jpg",
-          "aw2-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=alan-wake-2"
+        "cover_image": "game-5.jpg"
       },
       "tags": ["Horror", "Survival", "Story Rich", "Psychological", "Mystery"]
     },
@@ -200,15 +170,154 @@
         }
       },
       "media": {
-        "cover_image": "game-6.jpg",
-        "screenshots": [
-          "sm2-screenshot-1.jpg",
-          "sm2-screenshot-2.jpg",
-          "sm2-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=spider-man-2"
+        "cover_image": "game-6.jpg"
       },
       "tags": ["Superhero", "Open World", "Action", "Adventure", "Story Rich"]
+    },
+    {
+      "id": "red-dead-redemption-2",
+      "title": "Red Dead Redemption 2",
+      "developer": "Rockstar Games",
+      "publisher": "Rockstar Games",
+      "release_date": "2019-12-05",
+      "platforms": ["PC"],
+      "genres": ["Action", "Adventure", "Western"],
+      "price": 59.99,
+      "original_price": 59.99,
+      "discount_percent": 0,
+      "rating": 4.9,
+      "review_count": 1892,
+      "description": "America, 1899. The end of the wild west era has begun. After a robbery goes badly wrong in the western town of Blackwater, Arthur Morgan and the Van der Linde gang are forced to flee.",
+      "features": ["4K Support", "HDR", "Ray Tracing", "Mod Support"],
+      "system_requirements": {
+        "minimum": {
+          "os": "Windows 10",
+          "processor": "Intel Core i5-2500K",
+          "memory": "8 GB RAM",
+          "graphics": "NVIDIA GeForce GTX 770",
+          "storage": "150 GB"
+        }
+      },
+      "media": {
+        "cover_image": "game-7.jpg"
+      },
+      "tags": ["Western", "Open World", "Story Rich", "Action", "Adventure"]
+    },
+    {
+      "id": "call-of-duty-modern-warfare-3",
+      "title": "Call of Duty: Modern Warfare 3",
+      "developer": "Infinity Ward",
+      "publisher": "Activision",
+      "release_date": "2023-11-10",
+      "platforms": ["PC", "Xbox Series X|S"],
+      "genres": ["FPS", "Action", "Multiplayer"],
+      "price": 69.99,
+      "original_price": 69.99,
+      "discount_percent": 0,
+      "rating": 4.3,
+      "review_count": 1567,
+      "description": "The most advanced Call of Duty ever created. Modern Warfare 3 continues the cinematic campaign and brings back the beloved multiplayer experience.",
+      "features": ["4K Support", "HDR", "Ray Tracing", "Cross-Platform Play"],
+      "system_requirements": {
+        "minimum": {
+          "os": "Windows 10/11",
+          "processor": "Intel Core i5-6600",
+          "memory": "8 GB RAM",
+          "graphics": "NVIDIA GeForce GTX 1060",
+          "storage": "125 GB"
+        }
+      },
+      "media": {
+        "cover_image": "game-8.jpg"
+      },
+      "tags": ["FPS", "Multiplayer", "Action", "Modern Warfare", "Competitive"]
+    },
+    {
+      "id": "fifa-24",
+      "title": "EA SPORTS FC 24",
+      "developer": "EA Sports",
+      "publisher": "Electronic Arts",
+      "release_date": "2023-09-29",
+      "platforms": ["PC", "Xbox Series X|S"],
+      "genres": ["Sports", "Simulation"],
+      "price": 69.99,
+      "original_price": 69.99,
+      "discount_percent": 0,
+      "rating": 4.2,
+      "review_count": 2341,
+      "description": "Experience the beautiful game like never before with EA SPORTS FC 24. Powered by HyperMotionV technology and featuring the most authentic football experience.",
+      "features": ["4K Support", "HDR", "Cross-Platform Play", "Ultimate Team"],
+      "system_requirements": {
+        "minimum": {
+          "os": "Windows 10",
+          "processor": "Intel Core i5-6600K",
+          "memory": "8 GB RAM",
+          "graphics": "NVIDIA GeForce GTX 1050 Ti",
+          "storage": "100 GB"
+        }
+      },
+      "media": {
+        "cover_image": "game-9.jpg"
+      },
+      "tags": ["Football", "Sports", "Simulation", "Multiplayer", "Competitive"]
+    },
+    {
+      "id": "assassins-creed-mirage",
+      "title": "Assassin's Creed Mirage",
+      "developer": "Ubisoft",
+      "publisher": "Ubisoft",
+      "release_date": "2023-10-05",
+      "platforms": ["PC", "Xbox Series X|S"],
+      "genres": ["Action", "Adventure", "Stealth"],
+      "price": 49.99,
+      "original_price": 49.99,
+      "discount_percent": 0,
+      "rating": 4.5,
+      "review_count": 1234,
+      "description": "Experience the story of Basim, a cunning street thief with nightmarish visions, seeking answers and justice as he navigates the bustling streets of ninth-century Baghdad.",
+      "features": ["4K Support", "HDR", "Ray Tracing", "Stealth Mechanics"],
+      "system_requirements": {
+        "minimum": {
+          "os": "Windows 10/11",
+          "processor": "Intel Core i7-4790K",
+          "memory": "8 GB RAM",
+          "graphics": "NVIDIA GeForce GTX 1060",
+          "storage": "40 GB"
+        }
+      },
+      "media": {
+        "cover_image": "game-10.jpg"
+      },
+      "tags": ["Stealth", "Action", "Adventure", "Historical", "Open World"]
+    },
+    {
+      "id": "avatar-frontiers-of-pandora",
+      "title": "Avatar: Frontiers of Pandora",
+      "developer": "Massive Entertainment",
+      "publisher": "Ubisoft",
+      "release_date": "2023-12-07",
+      "platforms": ["PC", "Xbox Series X|S"],
+      "genres": ["Action", "Adventure", "Open World"],
+      "price": 69.99,
+      "original_price": 69.99,
+      "discount_percent": 0,
+      "rating": 4.4,
+      "review_count": 892,
+      "description": "Embark on a journey across the Western Frontier, a never-before-seen continent of Pandora. Abducted by the human militaristic corporation known as the RDA, you, a Na'vi, were trained and molded to serve their purpose.",
+      "features": ["4K Support", "HDR", "Ray Tracing", "Open World"],
+      "system_requirements": {
+        "minimum": {
+          "os": "Windows 10/11",
+          "processor": "AMD Ryzen 5 3600",
+          "memory": "16 GB RAM",
+          "graphics": "NVIDIA GeForce RTX 3060",
+          "storage": "90 GB"
+        }
+      },
+      "media": {
+        "cover_image": "game-11.jpg"
+      },
+      "tags": ["Avatar", "Open World", "Action", "Adventure", "Sci-Fi"]
     },
     {
       "id": "diablo-4",
@@ -221,13 +330,13 @@
       "price": 69.99,
       "original_price": 69.99,
       "discount_percent": 0,
-      "rating": 4.3,
-      "review_count": 1876,
-      "description": "Join the eternal struggle between the High Heavens and the Burning Hells in this open-world action RPG.",
-      "features": ["4K Support", "HDR", "Online Multiplayer", "Cross-Platform"],
+      "rating": 4.6,
+      "review_count": 3456,
+      "description": "Join the eternal struggle between the High Heavens and the Burning Hells in this open-world action RPG. Experience the campaign solo or with friends.",
+      "features": ["4K Support", "HDR", "Cross-Platform Play", "Seasons"],
       "system_requirements": {
         "minimum": {
-          "os": "Windows 10",
+          "os": "Windows 10/11",
           "processor": "Intel Core i5-2500K",
           "memory": "8 GB RAM",
           "graphics": "NVIDIA GeForce GTX 660",
@@ -235,190 +344,9 @@
         }
       },
       "media": {
-        "cover_image": "game-7.jpg",
-        "screenshots": [
-          "d4-screenshot-1.jpg",
-          "d4-screenshot-2.jpg",
-          "d4-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=diablo-4"
+        "cover_image": "game-12.jpg"
       },
-      "tags": ["RPG", "Hack and Slash", "Dark Fantasy", "Multiplayer", "Loot"]
-    },
-    {
-      "id": "street-fighter-6",
-      "title": "Street Fighter 6",
-      "developer": "Capcom",
-      "publisher": "Capcom",
-      "release_date": "2023-06-02",
-      "platforms": ["PC", "Xbox Series X|S"],
-      "genres": ["Fighting", "Action"],
-      "price": 59.99,
-      "original_price": 59.99,
-      "discount_percent": 0,
-      "rating": 4.5,
-      "review_count": 1123,
-      "description": "The latest entry in the legendary Street Fighter series features new mechanics, characters, and a revolutionary online experience.",
-      "features": ["4K Support", "HDR", "Online Multiplayer", "Story Mode"],
-      "system_requirements": {
-        "minimum": {
-          "os": "Windows 10",
-          "processor": "Intel Core i5-7500",
-          "memory": "8 GB RAM",
-          "graphics": "NVIDIA GeForce GTX 1060",
-          "storage": "60 GB"
-        }
-      },
-      "media": {
-        "cover_image": "game-8.jpg",
-        "screenshots": [
-          "sf6-screenshot-1.jpg",
-          "sf6-screenshot-2.jpg",
-          "sf6-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=street-fighter-6"
-      },
-      "tags": ["Fighting", "Arcade", "Multiplayer", "Competitive", "Action"]
-    },
-    {
-      "id": "resident-evil-4-remake",
-      "title": "Resident Evil 4 Remake",
-      "developer": "Capcom",
-      "publisher": "Capcom",
-      "release_date": "2023-03-24",
-      "platforms": ["PC", "Xbox Series X|S"],
-      "genres": ["Horror", "Survival", "Action"],
-      "price": 59.99,
-      "original_price": 59.99,
-      "discount_percent": 0,
-      "rating": 4.8,
-      "review_count": 2987,
-      "description": "Survival horror reimagined. Resident Evil 4 preserves the essence of the original while delivering modernized gameplay.",
-      "features": ["Ray Tracing", "4K Support", "HDR", "DualSense Support"],
-      "system_requirements": {
-        "minimum": {
-          "os": "Windows 10",
-          "processor": "AMD Ryzen 3 1200",
-          "memory": "8 GB RAM",
-          "graphics": "AMD Radeon RX 560",
-          "storage": "60 GB"
-        }
-      },
-      "media": {
-        "cover_image": "game-9.jpg",
-        "screenshots": [
-          "re4-screenshot-1.jpg",
-          "re4-screenshot-2.jpg",
-          "re4-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=resident-evil-4-remake"
-      },
-      "tags": ["Horror", "Survival", "Remake", "Action", "Story Rich"]
-    },
-    {
-      "id": "hogwarts-legacy",
-      "title": "Hogwarts Legacy",
-      "developer": "Avalanche Software",
-      "publisher": "Warner Bros. Games",
-      "release_date": "2023-02-10",
-      "platforms": ["PC", "Xbox Series X|S"],
-      "genres": ["RPG", "Action", "Adventure"],
-      "price": 59.99,
-      "original_price": 59.99,
-      "discount_percent": 0,
-      "rating": 4.6,
-      "review_count": 3456,
-      "description": "Experience Hogwarts in the 1800s. Your character is a student who holds the key to an ancient secret that threatens to tear the wizarding world apart.",
-      "features": ["4K Support", "HDR", "Ray Tracing", "Open World"],
-      "system_requirements": {
-        "minimum": {
-          "os": "Windows 10",
-          "processor": "Intel Core i5-6600",
-          "memory": "16 GB RAM",
-          "graphics": "NVIDIA GeForce GTX 960",
-          "storage": "85 GB"
-        }
-      },
-      "media": {
-        "cover_image": "game-10.jpg",
-        "screenshots": [
-          "hl-screenshot-1.jpg",
-          "hl-screenshot-2.jpg",
-          "hl-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=hogwarts-legacy"
-      },
-      "tags": ["RPG", "Fantasy", "Open World", "Magic", "Adventure"]
-    },
-    {
-      "id": "dead-space-remake",
-      "title": "Dead Space Remake",
-      "developer": "Motive Studio",
-      "publisher": "Electronic Arts",
-      "release_date": "2023-01-27",
-      "platforms": ["PC", "Xbox Series X|S"],
-      "genres": ["Horror", "Survival", "Action"],
-      "price": 69.99,
-      "original_price": 69.99,
-      "discount_percent": 0,
-      "rating": 4.7,
-      "review_count": 1876,
-      "description": "A remake of the sci-fi survival horror classic. Engineer Isaac Clarke is trapped on a mining ship with a mysterious alien infection.",
-      "features": ["Ray Tracing", "4K Support", "HDR", "DualSense Support"],
-      "system_requirements": {
-        "minimum": {
-          "os": "Windows 10",
-          "processor": "Intel Core i5-8600",
-          "memory": "16 GB RAM",
-          "graphics": "NVIDIA GeForce GTX 1070",
-          "storage": "50 GB"
-        }
-      },
-      "media": {
-        "cover_image": "game-11.jpg",
-        "screenshots": [
-          "ds-screenshot-1.jpg",
-          "ds-screenshot-2.jpg",
-          "ds-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=dead-space-remake"
-      },
-      "tags": ["Horror", "Survival", "Sci-Fi", "Remake", "Action"]
-    },
-    {
-      "id": "fifa-24",
-      "title": "EA Sports FC 24",
-      "developer": "EA Sports",
-      "publisher": "Electronic Arts",
-      "release_date": "2023-09-29",
-      "platforms": ["PC", "Xbox Series X|S"],
-      "genres": ["Sports", "Simulation"],
-      "price": 69.99,
-      "original_price": 69.99,
-      "discount_percent": 0,
-      "rating": 4.2,
-      "review_count": 2341,
-      "description": "The next evolution of The World's Game. Experience true-to-life football with HyperMotionV technology and enhanced gameplay.",
-      "features": ["4K Support", "HDR", "Online Multiplayer", "Career Mode"],
-      "system_requirements": {
-        "minimum": {
-          "os": "Windows 10",
-          "processor": "Intel Core i5-6600K",
-          "memory": "8 GB RAM",
-          "graphics": "NVIDIA GeForce GTX 1050 Ti",
-          "storage": "100 GB"
-        }
-      },
-      "media": {
-        "cover_image": "game-12.jpg",
-        "screenshots": [
-          "fifa24-screenshot-1.jpg",
-          "fifa24-screenshot-2.jpg",
-          "fifa24-screenshot-3.jpg"
-        ],
-        "trailer_url": "https://www.youtube.com/watch?v=fifa-24"
-      },
-      "tags": ["Sports", "Football", "Multiplayer", "Simulation", "Competitive"]
+      "tags": ["RPG", "Hack and Slash", "Action", "Fantasy", "Multiplayer"]
     }
   ],
   "categories": [

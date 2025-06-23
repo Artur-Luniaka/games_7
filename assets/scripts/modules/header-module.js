@@ -121,6 +121,12 @@ const headerModule = {
       }
     });
 
+    // Listen for cart updates from other modules
+    window.addEventListener("cartUpdated", () => {
+      this.loadCartFromStorage();
+      this.updateCartCounter();
+    });
+
     // Плавная прокрутка для якорных ссылок
     setTimeout(() => {
       document
@@ -225,8 +231,12 @@ const headerModule = {
       existingItem.quantity += 1;
     } else {
       this.cartItems.push({
-        ...gameData,
+        id: gameData.id,
+        title: gameData.title,
+        price: gameData.price,
         quantity: 1,
+        image: gameData.media?.cover_image || gameData.image,
+        platform: gameData.platforms?.[0] || gameData.platform,
       });
     }
 

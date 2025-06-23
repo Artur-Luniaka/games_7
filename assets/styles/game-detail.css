@@ -1,1 +1,1086 @@
- 
+/* Game Detail Page Styles - PixelVault Gaming Store */
+
+.game-detail-main {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--background-light) 0%, #e8f4fd 100%);
+  padding: 2rem 0;
+  margin-top: 80px; /* Отступ от хедера */
+}
+
+.game-detail-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Breadcrumb Navigation */
+.game-detail-header {
+  margin-bottom: 2rem;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.breadcrumb-nav a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-medium);
+  position: relative;
+}
+
+.breadcrumb-nav a:hover {
+  color: var(--secondary-color);
+}
+
+.breadcrumb-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  transition: width var(--transition-medium);
+}
+
+.breadcrumb-nav a:hover::after {
+  width: 100%;
+}
+
+.breadcrumb-separator {
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.current-game {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Main Content Layout */
+.game-detail-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 350px;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Game Media Section */
+.game-media-section {
+  grid-column: 1 / 3;
+}
+
+.game-main-image {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  aspect-ratio: 16/9;
+}
+
+.game-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.game-main-image:hover img {
+  transform: scale(1.05);
+}
+
+/* Game Info Section */
+.game-info-section {
+  grid-column: 1 / 3;
+}
+
+.game-header {
+  margin-bottom: 2rem;
+}
+
+.game-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.game-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.game-meta span {
+  padding: 0.25rem 0.75rem;
+  background: rgba(0, 180, 216, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 180, 216, 0.2);
+  transition: all var(--transition-medium);
+}
+
+.game-meta span:hover {
+  background: rgba(0, 180, 216, 0.2);
+  transform: translateY(-1px);
+}
+
+.game-rating {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star {
+  color: #ffd700;
+  font-size: 1.2rem;
+  transition: transform var(--transition-medium);
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.rating-text {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.review-count {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Game Description */
+.game-description {
+  margin-bottom: 2rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+/* Features Section */
+.game-features {
+  margin-bottom: 2rem;
+}
+
+.game-features h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.game-features h3::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+
+.features-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  padding: 1rem;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  border-left: 4px solid var(--primary-color);
+  transition: all var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+}
+
+.features-list li::before {
+  content: "✨";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  opacity: 0.3;
+  font-size: 1.2rem;
+}
+
+.features-list li:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+  border-left-color: var(--accent-color);
+}
+
+/* Platforms and Genres */
+.game-platforms,
+.game-genres,
+.game-tags {
+  margin-bottom: 2rem;
+}
+
+.game-platforms h3,
+.game-genres h3,
+.game-tags h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.platform-badges,
+.genre-tags,
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.platform-badge,
+.genre-tag,
+.game-tag {
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all var(--transition-medium);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.platform-badge {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  box-shadow: var(--shadow-light);
+}
+
+.platform-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.genre-tag {
+  background: rgba(114, 9, 183, 0.1);
+  color: var(--accent-color);
+  border: 2px solid rgba(114, 9, 183, 0.2);
+}
+
+.genre-tag:hover {
+  background: rgba(114, 9, 183, 0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-light);
+}
+
+.game-tag {
+  background: rgba(0, 180, 216, 0.1);
+  color: var(--primary-color);
+  border: 1px solid rgba(0, 180, 216, 0.3);
+  font-size: 0.85rem;
+}
+
+.game-tag:hover {
+  background: rgba(0, 180, 216, 0.2);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-light);
+}
+
+/* Purchase Section */
+.game-purchase-section {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+.purchase-card {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-medium);
+  border: 1px solid rgba(0, 180, 216, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.purchase-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+/* Price Section */
+.price-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.current-price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.original-price {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  margin-bottom: 0.5rem;
+}
+
+.discount-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-light);
+  animation: pulse 2s infinite;
+}
+
+/* Purchase Actions */
+.purchase-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.add-to-cart-btn,
+.wishlist-btn,
+.buy-now-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-to-cart-btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-light);
+}
+
+.add-to-cart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.wishlist-btn {
+  background: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+}
+
+.wishlist-btn:hover {
+  background: var(--accent-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.buy-now-btn {
+  background: linear-gradient(135deg, var(--accent-color), #9c27b0);
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-light);
+}
+
+.buy-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Purchase Info */
+.purchase-info {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+/* Game Stats */
+.game-stats {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.stat-item:last-child {
+  margin-bottom: 0;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Tabs Section */
+.game-details-tabs {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.tabs-navigation {
+  display: flex;
+  background: linear-gradient(135deg, var(--background-light), #e8f4fd);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tab-icon {
+  font-size: 1.2rem;
+}
+
+.tab-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transition: width var(--transition-medium);
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  background: white;
+}
+
+.tab-btn.active::after {
+  width: 100%;
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Tab Content */
+.tab-content {
+  padding: 2rem;
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* System Requirements */
+.system-requirements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.requirements-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.requirements-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: var(--primary-color);
+  border-radius: 1px;
+}
+
+.requirements-list {
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+}
+
+.requirement-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.requirement-item:last-child {
+  border-bottom: none;
+}
+
+.requirement-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.requirement-value {
+  color: var(--text-secondary);
+  text-align: right;
+  max-width: 60%;
+}
+
+/* Reviews Section */
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  gap: 2rem;
+}
+
+.overall-rating {
+  text-align: center;
+  min-width: 150px;
+}
+
+.rating-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: block;
+}
+
+.rating-stars {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin: 0.5rem 0;
+}
+
+.total-reviews {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.rating-breakdown {
+  flex: 1;
+  max-width: 300px;
+}
+
+.rating-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.rating-bar span:first-child {
+  min-width: 30px;
+  color: var(--text-secondary);
+}
+
+.rating-bar span:last-child {
+  min-width: 40px;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.bar-container {
+  flex: 1;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 4px;
+  transition: width var(--transition-medium);
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.review-item {
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.review-date {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.review-rating {
+  color: #ffd700;
+  font-size: 1.1rem;
+}
+
+.review-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Related Games */
+.related-games {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.related-game-card {
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: all var(--transition-medium);
+  cursor: pointer;
+}
+
+.related-game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+
+.related-game-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.related-game-info {
+  padding: 1rem;
+}
+
+.related-game-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.related-game-price {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Achievements Section */
+.achievements-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.achievements-summary {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.achievements-count,
+.achievements-points {
+  padding: 0.25rem 0.75rem;
+  background: rgba(0, 180, 216, 0.1);
+  border-radius: 15px;
+  border: 1px solid rgba(0, 180, 216, 0.2);
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.achievement-item {
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  border-left: 4px solid #ffd700;
+  transition: all var(--transition-medium);
+}
+
+.achievement-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-light);
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.achievement-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.achievement-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.achievement-points {
+  font-size: 0.8rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .game-detail-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .game-purchase-section {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+  }
+
+  .system-requirements {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .rating-breakdown {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-detail-main {
+    padding: 1rem 0;
+    margin-top: 60px; /* Меньший отступ для мобильных */
+  }
+
+  .game-detail-container {
+    padding: 0 15px;
+  }
+
+  .game-detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .tabs-navigation {
+    flex-direction: column;
+  }
+
+  .tab-btn {
+    padding: 1rem;
+  }
+
+  .tab-content {
+    padding: 1.5rem;
+  }
+
+  .purchase-card {
+    padding: 1.5rem;
+  }
+
+  .current-price {
+    font-size: 2rem;
+  }
+
+  .features-list {
+    grid-template-columns: 1fr;
+  }
+
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievements-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .achievements-summary {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .game-purchase-section {
+    align-self: center;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .game-rating {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .platform-badges,
+  .genre-tags,
+  .tag-cloud {
+    justify-content: center;
+  }
+
+  .purchase-actions {
+    gap: 0.75rem;
+  }
+
+  .add-to-cart-btn,
+  .wishlist-btn,
+  .buy-now-btn {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+
+  .rating-bar {
+    font-size: 0.8rem;
+  }
+
+  .bar-container {
+    height: 6px;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Loading States */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus States */
+.tab-btn:focus,
+.add-to-cart-btn:focus,
+.buy-now-btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Button States for In-Button Feedback */
+.add-to-cart-btn.processing,
+.add-to-cart-btn.success,
+.buy-now-btn.redirecting {
+  cursor: not-allowed;
+}
+
+.add-to-cart-btn.processing,
+.buy-now-btn.redirecting {
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}
+
+.add-to-cart-btn.success {
+  background: linear-gradient(135deg, #28a745, #218838);
+}
+
+.btn-spinner {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: btn-spin 1s ease-in-out infinite;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-check-icon {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  font-weight: bold;
+}

@@ -1,4 +1,4 @@
-// Game Detail Page Module
+// Game Detail Page Module - PixelVault Gaming Store
 class GameDetailManager {
   constructor() {
     this.gameData = null;
@@ -10,22 +10,25 @@ class GameDetailManager {
     await this.loadGameData();
     this.setupEventListeners();
     this.initializeTabs();
+    this.initializeNotifications();
   }
 
   async loadGameData() {
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      this.currentGameId = urlParams.get("id") || "1";
+      this.currentGameId =
+        urlParams.get("id") || "cyberpunk-2077-phantom-liberty";
 
       const response = await fetch("assets/data/games-catalog.json");
       const gamesData = await response.json();
 
-      this.gameData = gamesData.games.find(
+      // Ищем игру в featured_games
+      this.gameData = gamesData.featured_games.find(
         (game) => game.id === this.currentGameId
       );
 
       if (!this.gameData) {
-        this.gameData = gamesData.games[0]; // Fallback to first game
+        this.gameData = gamesData.featured_games[0]; // Fallback to first game
       }
 
       this.renderGameDetails();
@@ -42,26 +45,22 @@ class GameDetailManager {
     this.renderGameInfo();
     this.renderPurchaseSection();
     this.renderSystemRequirements();
+    this.renderReviews();
+    this.renderAchievements();
     this.renderRelatedGames();
   }
 
   updatePageTitle() {
     document.title = `${this.gameData.title} - PixelVault Gaming Store`;
+
+    // Update breadcrumb
+    const currentGameTitle = document.getElementById("current-game-title");
+    if (currentGameTitle) {
+      currentGameTitle.textContent = this.gameData.title;
+    }
   }
 
   renderGameHeader() {
-    // Update breadcrumb
-    const categoryLink = document.querySelector(".category-link");
-    if (categoryLink) {
-      categoryLink.textContent = this.gameData.genres[0];
-      categoryLink.href = `index.html?category=${this.gameData.genres[0].toLowerCase()}`;
-    }
-
-    const currentGame = document.querySelector(".current-game");
-    if (currentGame) {
-      currentGame.textContent = this.gameData.title;
-    }
-
     // Update main game title
     const gameTitle = document.getElementById("game-title");
     if (gameTitle) {
@@ -75,8 +74,14 @@ class GameDetailManager {
 
     if (gameDeveloper) gameDeveloper.textContent = this.gameData.developer;
     if (gamePublisher) gamePublisher.textContent = this.gameData.publisher;
-    if (gameReleaseDate)
-      gameReleaseDate.textContent = this.gameData.releaseDate;
+    if (gameReleaseDate) {
+      const date = new Date(this.gameData.release_date);
+      gameReleaseDate.textContent = date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    }
 
     // Update rating
     this.updateGameRating();
@@ -85,6 +90,7 @@ class GameDetailManager {
   updateGameRating() {
     const starsContainer = document.getElementById("game-stars");
     const ratingText = document.getElementById("rating-text");
+    const reviewCount = document.getElementById("review-count");
 
     if (starsContainer && ratingText) {
       const rating = this.gameData.rating;
@@ -99,10 +105,10 @@ class GameDetailManager {
 
         if (i < fullStars) {
           star.textContent = "★";
-          star.style.color = "#f1c40f";
+          star.style.color = "#ffd700";
         } else if (i === fullStars && hasHalfStar) {
           star.textContent = "☆";
-          star.style.color = "#f1c40f";
+          star.style.color = "#ffd700";
         } else {
           star.textContent = "☆";
           star.style.color = "#ddd";
@@ -113,58 +119,19 @@ class GameDetailManager {
 
       ratingText.textContent = `${rating}/5`;
     }
+
+    if (reviewCount) {
+      reviewCount.textContent = `(${this.gameData.review_count.toLocaleString()} reviews)`;
+    }
   }
 
   renderGameMedia() {
     // Update main image
     const mainImage = document.getElementById("game-main-image");
     if (mainImage) {
-      mainImage.src = this.gameData.media.coverImage;
+      mainImage.src = `assets/public/${this.gameData.media.cover_image}`;
       mainImage.alt = this.gameData.title;
     }
-
-    // Render screenshots
-    this.renderScreenshots();
-  }
-
-  renderScreenshots() {
-    const screenshotsContainer = document.getElementById("game-screenshots");
-    if (!screenshotsContainer || !this.gameData.media.screenshots) return;
-
-    screenshotsContainer.innerHTML = "";
-
-    this.gameData.media.screenshots.forEach((screenshot, index) => {
-      const screenshotItem = document.createElement("div");
-      screenshotItem.className = "screenshot-item";
-
-      const img = document.createElement("img");
-      img.src = screenshot;
-      img.alt = `${this.gameData.title} screenshot ${index + 1}`;
-      img.addEventListener("click", () => this.openScreenshotModal(screenshot));
-
-      screenshotItem.appendChild(img);
-      screenshotsContainer.appendChild(screenshotItem);
-    });
-  }
-
-  openScreenshotModal(screenshotUrl) {
-    // Create modal for screenshot viewing
-    const modal = document.createElement("div");
-    modal.className = "screenshot-modal";
-    modal.innerHTML = `
-      <div class="modal-content">
-        <button class="modal-close">&times;</button>
-        <img src="${screenshotUrl}" alt="Screenshot" />
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal || e.target.classList.contains("modal-close")) {
-        document.body.removeChild(modal);
-      }
-    });
   }
 
   renderGameInfo() {
@@ -182,6 +149,9 @@ class GameDetailManager {
 
     // Render genres
     this.renderGenres();
+
+    // Render tags
+    this.renderTags();
   }
 
   renderFeatures() {
@@ -204,7 +174,7 @@ class GameDetailManager {
     platformsContainer.innerHTML = "";
 
     this.gameData.platforms.forEach((platform) => {
-      const badge = document.createElement("div");
+      const badge = document.createElement("span");
       badge.className = "platform-badge";
       badge.textContent = platform;
       platformsContainer.appendChild(badge);
@@ -218,18 +188,29 @@ class GameDetailManager {
     genresContainer.innerHTML = "";
 
     this.gameData.genres.forEach((genre) => {
-      const tag = document.createElement("div");
+      const tag = document.createElement("span");
       tag.className = "genre-tag";
       tag.textContent = genre;
-      tag.addEventListener("click", () => {
-        window.location.href = `index.html?category=${genre.toLowerCase()}`;
-      });
       genresContainer.appendChild(tag);
     });
   }
 
+  renderTags() {
+    const tagsContainer = document.querySelector(".tag-cloud");
+    if (!tagsContainer || !this.gameData.tags) return;
+
+    tagsContainer.innerHTML = "";
+
+    this.gameData.tags.forEach((tag) => {
+      const tagElement = document.createElement("span");
+      tagElement.className = "game-tag";
+      tagElement.textContent = tag;
+      tagsContainer.appendChild(tagElement);
+    });
+  }
+
   renderPurchaseSection() {
-    // Update pricing
+    // Update price information
     const currentPrice = document.getElementById("current-price");
     const originalPrice = document.getElementById("original-price");
     const discountBadge = document.getElementById("discount-badge");
@@ -238,78 +219,160 @@ class GameDetailManager {
       currentPrice.textContent = `$${this.gameData.price.toFixed(2)}`;
     }
 
-    if (this.gameData.discount > 0) {
-      const originalPriceValue =
-        this.gameData.price / (1 - this.gameData.discount / 100);
-
-      if (originalPrice) {
-        originalPrice.textContent = `$${originalPriceValue.toFixed(2)}`;
-        originalPrice.style.display = "block";
-      }
-
-      if (discountBadge) {
-        discountBadge.textContent = `-${this.gameData.discount}%`;
-        discountBadge.style.display = "block";
-      }
-    } else {
-      if (originalPrice) originalPrice.style.display = "none";
-      if (discountBadge) discountBadge.style.display = "none";
+    if (originalPrice && this.gameData.original_price) {
+      originalPrice.textContent = `$${this.gameData.original_price.toFixed(2)}`;
+      originalPrice.style.display = "block";
+    } else if (originalPrice) {
+      originalPrice.style.display = "none";
     }
+
+    if (discountBadge && this.gameData.discount_percent > 0) {
+      discountBadge.textContent = `-${this.gameData.discount_percent}%`;
+      discountBadge.style.display = "block";
+    } else if (discountBadge) {
+      discountBadge.style.display = "none";
+    }
+
+    // Update game stats
+    this.updateGameStats();
 
     // Setup purchase buttons
     this.setupPurchaseButtons();
   }
 
+  updateGameStats() {
+    const fileSize = document.getElementById("file-size");
+    const languages = document.getElementById("languages");
+    const multiplayer = document.getElementById("multiplayer");
+
+    if (fileSize) {
+      // Генерируем случайный размер файла
+      const sizes = ["25 GB", "50 GB", "75 GB", "100 GB", "125 GB"];
+      fileSize.textContent = sizes[Math.floor(Math.random() * sizes.length)];
+    }
+
+    if (languages) {
+      const languageOptions = [
+        "English, Spanish, French",
+        "English, German, Italian",
+        "English, Japanese, Korean",
+        "English, Portuguese, Russian",
+      ];
+      languages.textContent =
+        languageOptions[Math.floor(Math.random() * languageOptions.length)];
+    }
+
+    if (multiplayer) {
+      const hasMultiplayer = Math.random() > 0.3;
+      multiplayer.textContent = hasMultiplayer ? "Yes" : "No";
+    }
+  }
+
   setupPurchaseButtons() {
     const addToCartBtn = document.getElementById("add-to-cart-btn");
-    const wishlistBtn = document.getElementById("wishlist-btn");
+    const buyNowBtn = document.getElementById("buy-now-btn");
 
     if (addToCartBtn) {
       addToCartBtn.addEventListener("click", () => this.addToCart());
     }
 
-    if (wishlistBtn) {
-      wishlistBtn.addEventListener("click", () => this.addToWishlist());
+    if (buyNowBtn) {
+      buyNowBtn.addEventListener("click", () => this.buyNow());
     }
   }
 
-  addToCart() {
-    const cartItem = {
-      id: this.gameData.id,
-      title: this.gameData.title,
-      price: this.gameData.price,
-      image: this.gameData.media.coverImage,
-      quantity: 1,
-    };
+  updateCartStorage() {
+    let cart = JSON.parse(localStorage.getItem("pixelvault-cart") || "[]");
+    const existingItem = cart.find((item) => item.id === this.gameData.id);
 
-    // Dispatch custom event for cart management
-    const event = new CustomEvent("addToCart", { detail: cartItem });
-    window.dispatchEvent(event);
-
-    // Show success notification
-    this.showNotification("Game added to cart!", "success");
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        id: this.gameData.id,
+        title: this.gameData.title,
+        price: this.gameData.price,
+        quantity: 1,
+        image: this.gameData.media.cover_image,
+      });
+    }
+    localStorage.setItem("pixelvault-cart", JSON.stringify(cart));
+    this.updateCartCounter();
   }
 
-  addToWishlist() {
-    // Add to wishlist functionality
-    this.showNotification("Game added to wishlist!", "success");
+  addToCart() {
+    const addToCartBtn = document.getElementById("add-to-cart-btn");
+    if (
+      addToCartBtn.classList.contains("processing") ||
+      addToCartBtn.classList.contains("success")
+    ) {
+      return; // Предотвращаем повторные нажатия
+    }
+
+    const originalContent = addToCartBtn.innerHTML;
+    addToCartBtn.disabled = true;
+    addToCartBtn.classList.add("processing");
+    addToCartBtn.innerHTML = `<span class="btn-spinner"></span> Processing...`;
+
+    setTimeout(() => {
+      this.updateCartStorage();
+
+      addToCartBtn.classList.remove("processing");
+      addToCartBtn.classList.add("success");
+      addToCartBtn.innerHTML = `<span class="btn-check-icon">✔</span> Added!`;
+
+      setTimeout(() => {
+        addToCartBtn.disabled = false;
+        addToCartBtn.classList.remove("success");
+        addToCartBtn.innerHTML = originalContent;
+      }, 2000); // Возвращаем кнопку в исходное состояние через 2 секунды
+    }, 1500); // Имитируем запрос к серверу
+  }
+
+  buyNow() {
+    const buyNowBtn = document.getElementById("buy-now-btn");
+    buyNowBtn.disabled = true;
+    buyNowBtn.classList.add("redirecting");
+    buyNowBtn.innerHTML = `<span class="btn-spinner"></span> Redirecting...`;
+
+    this.updateCartStorage();
+
+    setTimeout(() => {
+      window.location.href = "cart.html";
+    }, 1500); // Задержка перед перенаправлением
+  }
+
+  updateCartCounter() {
+    const cart = JSON.parse(localStorage.getItem("pixelvault-cart") || "[]");
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    const cartCounter = document.getElementById("cart-counter");
+    if (cartCounter) {
+      cartCounter.textContent = totalItems;
+    }
   }
 
   renderSystemRequirements() {
     const minRequirements = document.getElementById("min-requirements");
     const recRequirements = document.getElementById("rec-requirements");
 
-    if (minRequirements && this.gameData.systemRequirements.minimum) {
+    if (minRequirements && this.gameData.system_requirements?.minimum) {
       this.renderRequirementsList(
         minRequirements,
-        this.gameData.systemRequirements.minimum
+        this.gameData.system_requirements.minimum
       );
     }
 
-    if (recRequirements && this.gameData.systemRequirements.recommended) {
+    if (recRequirements && this.gameData.system_requirements?.recommended) {
       this.renderRequirementsList(
         recRequirements,
-        this.gameData.systemRequirements.recommended
+        this.gameData.system_requirements.recommended
+      );
+    } else if (recRequirements && this.gameData.system_requirements?.minimum) {
+      // Если нет рекомендуемых требований, используем минимальные как рекомендуемые
+      this.renderRequirementsList(
+        recRequirements,
+        this.gameData.system_requirements.minimum
       );
     }
   }
@@ -336,60 +399,137 @@ class GameDetailManager {
   }
 
   formatRequirementLabel(key) {
-    return key
-      .replace(/([A-Z])/g, " $1")
-      .replace(/^./, (str) => str.toUpperCase());
+    return (
+      key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1")
+    );
+  }
+
+  renderReviews() {
+    const reviewsList = document.getElementById("reviews-list");
+    if (!reviewsList) return;
+
+    // Генерируем примеры отзывов
+    const sampleReviews = [
+      {
+        name: "GamerPro_123",
+        rating: 5,
+        date: "2 days ago",
+        text: "Absolutely amazing game! The graphics are stunning and the gameplay is incredibly smooth. Highly recommend!",
+      },
+      {
+        name: "GameMaster_456",
+        rating: 4,
+        date: "1 week ago",
+        text: "Great game overall. The story is engaging and the mechanics are well thought out. Minor bugs but nothing game-breaking.",
+      },
+      {
+        name: "PixelVault_Fan",
+        rating: 5,
+        date: "3 days ago",
+        text: "This exceeded all my expectations. The developers really outdid themselves with this one. Worth every penny!",
+      },
+    ];
+
+    reviewsList.innerHTML = "";
+
+    sampleReviews.forEach((review) => {
+      const reviewItem = document.createElement("div");
+      reviewItem.className = "review-item";
+
+      const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+
+      reviewItem.innerHTML = `
+        <div class="review-header">
+          <span class="reviewer-name">${review.name}</span>
+          <span class="review-date">${review.date}</span>
+        </div>
+        <div class="review-rating">${stars}</div>
+        <div class="review-text">${review.text}</div>
+      `;
+
+      reviewsList.appendChild(reviewItem);
+    });
+  }
+
+  renderAchievements() {
+    const achievementsGrid = document.getElementById("achievements-grid");
+    if (!achievementsGrid) return;
+
+    // Генерируем примеры достижений
+    const sampleAchievements = [
+      {
+        icon: "🏆",
+        name: "First Steps",
+        desc: "Complete the tutorial",
+        points: 10,
+      },
+      { icon: "⚔️", name: "Warrior", desc: "Defeat 100 enemies", points: 25 },
+      { icon: "🌟", name: "Explorer", desc: "Visit all locations", points: 50 },
+      {
+        icon: "💎",
+        name: "Collector",
+        desc: "Find all hidden items",
+        points: 75,
+      },
+      {
+        icon: "👑",
+        name: "Champion",
+        desc: "Complete the game on hardest difficulty",
+        points: 100,
+      },
+      {
+        icon: "🎯",
+        name: "Sharpshooter",
+        desc: "Achieve 100% accuracy",
+        points: 30,
+      },
+    ];
+
+    achievementsGrid.innerHTML = "";
+
+    sampleAchievements.forEach((achievement) => {
+      const achievementItem = document.createElement("div");
+      achievementItem.className = "achievement-item";
+
+      achievementItem.innerHTML = `
+        <div class="achievement-icon">${achievement.icon}</div>
+        <div class="achievement-name">${achievement.name}</div>
+        <div class="achievement-desc">${achievement.desc}</div>
+        <div class="achievement-points">${achievement.points} points</div>
+      `;
+
+      achievementsGrid.appendChild(achievementItem);
+    });
   }
 
   renderRelatedGames() {
-    const relatedContainer = document.getElementById("related-games");
-    if (!relatedContainer) return;
+    const relatedGamesContainer = document.getElementById("related-games");
+    if (!relatedGamesContainer) return;
 
-    // Get games from same genre
-    this.loadRelatedGames().then((relatedGames) => {
-      relatedContainer.innerHTML = "";
-
-      relatedGames.slice(0, 4).forEach((game) => {
-        const gameCard = this.createRelatedGameCard(game);
-        relatedContainer.appendChild(gameCard);
-      });
-    });
-  }
-
-  async loadRelatedGames() {
-    try {
-      const response = await fetch("assets/data/games-catalog.json");
-      const gamesData = await response.json();
-
-      return gamesData.games.filter(
-        (game) =>
-          game.id !== this.currentGameId &&
-          game.genres.some((genre) => this.gameData.genres.includes(genre))
-      );
-    } catch (error) {
-      console.error("Error loading related games:", error);
-      return [];
-    }
-  }
-
-  createRelatedGameCard(game) {
-    const card = document.createElement("div");
-    card.className = "related-game-card";
-    card.addEventListener("click", () => {
-      window.location.href = `game-detail.html?id=${game.id}`;
-    });
-
-    card.innerHTML = `
-      <img src="${game.media.coverImage}" alt="${
-      game.title
-    }" class="related-game-image" />
-      <div class="related-game-info">
-        <h4 class="related-game-title">${game.title}</h4>
-        <div class="related-game-price">$${game.price.toFixed(2)}</div>
+    // Показываем заглушку для связанных игр
+    relatedGamesContainer.innerHTML = `
+      <div class="related-game-card">
+        <img src="assets/public/game-2.jpg" alt="Related Game" class="related-game-image">
+        <div class="related-game-info">
+          <div class="related-game-title">Starfield</div>
+          <div class="related-game-price">$69.99</div>
+        </div>
+      </div>
+      <div class="related-game-card">
+        <img src="assets/public/game-3.jpg" alt="Related Game" class="related-game-image">
+        <div class="related-game-info">
+          <div class="related-game-title">Baldur's Gate 3</div>
+          <div class="related-game-price">$59.99</div>
+        </div>
+      </div>
+      <div class="related-game-card">
+        <img src="assets/public/game-4.jpg" alt="Related Game" class="related-game-image">
+        <div class="related-game-info">
+          <div class="related-game-title">Mortal Kombat 1</div>
+          <div class="related-game-price">$69.99</div>
+        </div>
       </div>
     `;
-
-    return card;
   }
 
   initializeTabs() {
@@ -415,73 +555,41 @@ class GameDetailManager {
   }
 
   setupEventListeners() {
-    // Trailer button
-    const playTrailerBtn = document.getElementById("play-trailer-btn");
-    if (playTrailerBtn) {
-      playTrailerBtn.addEventListener("click", () => this.openTrailerModal());
-    }
-
-    // Video modal close
-    const modalClose = document.getElementById("modal-close");
-    if (modalClose) {
-      modalClose.addEventListener("click", () => this.closeVideoModal());
-    }
-
-    // Close modal on outside click
-    const videoModal = document.getElementById("video-modal");
-    if (videoModal) {
-      videoModal.addEventListener("click", (e) => {
-        if (e.target === videoModal) {
-          this.closeVideoModal();
-        }
-      });
-    }
+    // Инициализируем систему уведомлений
+    this.initializeNotifications();
   }
 
-  openTrailerModal() {
-    const videoModal = document.getElementById("video-modal");
-    const trailerVideo = document.getElementById("trailer-video");
-
-    if (videoModal && trailerVideo && this.gameData.media.trailerUrl) {
-      trailerVideo.src = this.gameData.media.trailerUrl;
-      videoModal.classList.add("active");
-      document.body.style.overflow = "hidden";
-    }
-  }
-
-  closeVideoModal() {
-    const videoModal = document.getElementById("video-modal");
-    const trailerVideo = document.getElementById("trailer-video");
-
-    if (videoModal && trailerVideo) {
-      videoModal.classList.remove("active");
-      trailerVideo.src = "";
-      document.body.style.overflow = "auto";
+  initializeNotifications() {
+    // Инициализируем систему уведомлений
+    if (typeof notificationSystemModule !== "undefined") {
+      notificationSystemModule.initializeNotifications();
     }
   }
 
   showNotification(message, type = "info") {
-    const event = new CustomEvent("showNotification", {
-      detail: { message, type },
-    });
-    window.dispatchEvent(event);
+    if (typeof notificationSystemModule !== "undefined") {
+      notificationSystemModule.showNotification(message, type);
+    } else {
+      // Fallback notification
+      console.log(`${type.toUpperCase()}: ${message}`);
+    }
   }
 
   showErrorMessage() {
-    const mainContent = document.querySelector(".game-detail-content");
-    if (mainContent) {
-      mainContent.innerHTML = `
-        <div class="error-message">
-          <h2>Oops! Something went wrong</h2>
-          <p>We couldn't load the game details. Please try again later.</p>
-          <a href="index.html" class="primary-btn">Back to Home</a>
+    const main = document.querySelector(".game-detail-main");
+    if (main) {
+      main.innerHTML = `
+        <div class="error-container" style="text-align: center; padding: 4rem 2rem;">
+          <h2>Error Loading Game</h2>
+          <p>Sorry, we couldn't load the game details. Please try again later.</p>
+          <a href="catalog.html" class="btn primary-btn">Back to Catalog</a>
         </div>
       `;
     }
   }
 }
 
-// Initialize game detail manager when DOM is loaded
+// Initialize the game detail page
 document.addEventListener("DOMContentLoaded", () => {
   new GameDetailManager();
 });

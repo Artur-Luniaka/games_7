@@ -6,7 +6,7 @@
     <title>Game Title - PixelVault Gaming Store</title>
     <meta
       name="description"
-      content="Discover detailed information about this amazing game. View screenshots, system requirements, and purchase options."
+      content="Discover detailed information about this amazing game. View system requirements and purchase options."
     />
     <link rel="stylesheet" href="assets/styles/core-styles.css" />
     <link rel="stylesheet" href="assets/styles/header-styles.css" />
@@ -23,9 +23,9 @@
           <nav class="breadcrumb-nav">
             <a href="index.html">Home</a>
             <span class="breadcrumb-separator">/</span>
-            <a href="#" class="category-link">Category</a>
+            <a href="catalog.html" class="category-link">Games</a>
             <span class="breadcrumb-separator">/</span>
-            <span class="current-game">Game Title</span>
+            <span class="current-game" id="current-game-title">Game Title</span>
           </nav>
         </div>
 
@@ -33,15 +33,6 @@
           <div class="game-media-section">
             <div class="game-main-image">
               <img src="" alt="Game Title" id="game-main-image" />
-              <div class="game-image-overlay">
-                <button class="play-trailer-btn" id="play-trailer-btn">
-                  <span class="play-icon">▶</span>
-                  Watch Trailer
-                </button>
-              </div>
-            </div>
-            <div class="game-screenshots" id="game-screenshots">
-              <!-- Screenshots will be loaded dynamically -->
             </div>
           </div>
 
@@ -68,6 +59,9 @@
                   <span class="star">★</span>
                 </div>
                 <span class="rating-text" id="rating-text">4.5/5</span>
+                <span class="review-count" id="review-count"
+                  >(1,234 reviews)</span
+                >
               </div>
             </div>
 
@@ -95,6 +89,13 @@
                 <!-- Genre tags will be loaded dynamically -->
               </div>
             </div>
+
+            <div class="game-tags" id="game-tags">
+              <h3>Tags</h3>
+              <div class="tag-cloud">
+                <!-- Tags will be loaded dynamically -->
+              </div>
+            </div>
           </div>
 
           <div class="game-purchase-section">
@@ -113,9 +114,9 @@
                   <span class="cart-icon">🛒</span>
                   Add to Cart
                 </button>
-                <button class="wishlist-btn secondary-btn" id="wishlist-btn">
-                  <span class="heart-icon">❤</span>
-                  Add to Wishlist
+                <button class="buy-now-btn accent-btn" id="buy-now-btn">
+                  <span class="flash-icon">⚡</span>
+                  Buy Now
                 </button>
               </div>
 
@@ -132,6 +133,27 @@
                   <span class="info-icon">🔄</span>
                   <span>30-Day Refund</span>
                 </div>
+                <div class="info-item">
+                  <span class="info-icon">🛡️</span>
+                  <span>Secure Payment</span>
+                </div>
+              </div>
+
+              <div class="game-stats">
+                <div class="stat-item">
+                  <span class="stat-label">File Size</span>
+                  <span class="stat-value" id="file-size">75 GB</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Languages</span>
+                  <span class="stat-value" id="languages"
+                    >English, Spanish, French</span
+                  >
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Multiplayer</span>
+                  <span class="stat-value" id="multiplayer">Yes</span>
+                </div>
               </div>
             </div>
           </div>
@@ -140,10 +162,21 @@
         <div class="game-details-tabs">
           <div class="tabs-navigation">
             <button class="tab-btn active" data-tab="requirements">
+              <span class="tab-icon">⚙️</span>
               System Requirements
             </button>
-            <button class="tab-btn" data-tab="reviews">Reviews</button>
-            <button class="tab-btn" data-tab="related">Related Games</button>
+            <button class="tab-btn" data-tab="reviews">
+              <span class="tab-icon">⭐</span>
+              Reviews
+            </button>
+            <button class="tab-btn" data-tab="related">
+              <span class="tab-icon">🎮</span>
+              Related Games
+            </button>
+            <button class="tab-btn" data-tab="achievements">
+              <span class="tab-icon">🏆</span>
+              Achievements
+            </button>
           </div>
 
           <div class="tab-content">
@@ -170,9 +203,48 @@
                   <h3>Player Reviews</h3>
                   <div class="reviews-summary">
                     <div class="overall-rating">
-                      <span class="rating-number">4.5</span>
-                      <div class="rating-stars">★★★★★</div>
-                      <span class="total-reviews">Based on 1,234 reviews</span>
+                      <span class="rating-number" id="overall-rating">4.5</span>
+                      <div class="rating-stars" id="overall-stars">★★★★★</div>
+                      <span class="total-reviews" id="total-reviews"
+                        >Based on 1,234 reviews</span
+                      >
+                    </div>
+                    <div class="rating-breakdown">
+                      <div class="rating-bar">
+                        <span>5★</span>
+                        <div class="bar-container">
+                          <div class="bar-fill" style="width: 75%"></div>
+                        </div>
+                        <span>75%</span>
+                      </div>
+                      <div class="rating-bar">
+                        <span>4★</span>
+                        <div class="bar-container">
+                          <div class="bar-fill" style="width: 15%"></div>
+                        </div>
+                        <span>15%</span>
+                      </div>
+                      <div class="rating-bar">
+                        <span>3★</span>
+                        <div class="bar-container">
+                          <div class="bar-fill" style="width: 7%"></div>
+                        </div>
+                        <span>7%</span>
+                      </div>
+                      <div class="rating-bar">
+                        <span>2★</span>
+                        <div class="bar-container">
+                          <div class="bar-fill" style="width: 2%"></div>
+                        </div>
+                        <span>2%</span>
+                      </div>
+                      <div class="rating-bar">
+                        <span>1★</span>
+                        <div class="bar-container">
+                          <div class="bar-fill" style="width: 1%"></div>
+                        </div>
+                        <span>1%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -187,6 +259,21 @@
                 <!-- Related games will be loaded dynamically -->
               </div>
             </div>
+
+            <div class="tab-panel" id="achievements-panel">
+              <div class="achievements-section">
+                <div class="achievements-header">
+                  <h3>Game Achievements</h3>
+                  <div class="achievements-summary">
+                    <span class="achievements-count">45 Achievements</span>
+                    <span class="achievements-points">1,000 Points</span>
+                  </div>
+                </div>
+                <div class="achievements-grid" id="achievements-grid">
+                  <!-- Achievements will be loaded dynamically -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -196,21 +283,6 @@
 
     <div id="notification-container"></div>
 
-    <!-- Video Modal -->
-    <div class="video-modal" id="video-modal">
-      <div class="modal-content">
-        <button class="modal-close" id="modal-close">&times;</button>
-        <div class="video-container">
-          <iframe
-            id="trailer-video"
-            src=""
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-    </div>
-
     <script
       type="module"
       src="assets/scripts/modules/header-module.js"
@@ -218,10 +290,6 @@
     <script
       type="module"
       src="assets/scripts/modules/footer-module.js"
-    ></script>
-    <script
-      type="module"
-      src="assets/scripts/modules/cart-management.js"
     ></script>
     <script
       type="module"

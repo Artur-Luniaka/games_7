@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="assets/styles/footer-styles.css" />
     <link rel="stylesheet" href="assets/styles/cart-styles.css" />
     <link rel="stylesheet" href="assets/styles/cart-page.css" />
+    <link rel="stylesheet" href="assets/styles/cart-responsive.css" />
   </head>
   <body>
     <div id="header-container"></div>
@@ -31,7 +32,13 @@
         <div class="cart-content">
           <div class="cart-items-section" id="cart-items-container">
             <div class="cart-items-header">
-              <h2>Cart Items (<span id="cart-items-count">0</span>)</h2>
+              <h2>
+                <img
+                  src="assets/public/basket.png"
+                  alt="Cart Icon"
+                  class="cart-title-icon"
+                />Cart Items (<span id="cart-items-count">0</span>)
+              </h2>
               <button class="clear-cart-btn" id="clear-cart-btn">
                 <span class="trash-icon">🗑️</span>
                 Clear Cart
@@ -59,54 +66,36 @@
           </div>
 
           <div class="cart-summary-section" id="cart-summary-container">
-            <div class="cart-summary-card">
+            <div class="cart-summary-card wow-summary">
               <h3>Order Summary</h3>
-
-              <div class="summary-items" id="summary-items">
-                <!-- Summary items will be loaded dynamically -->
-              </div>
-
+              <div class="summary-items" id="summary-items"></div>
               <div class="summary-totals">
                 <div class="summary-row">
-                  <span>Subtotal</span>
-                  <span id="subtotal">$0.00</span>
+                  <span class="summary-label">Subtotal</span>
+                  <span class="summary-value" id="subtotal">$0.00</span>
                 </div>
                 <div class="summary-row">
-                  <span>Tax</span>
-                  <span id="tax">$0.00</span>
+                  <span class="summary-label">Tax</span>
+                  <span class="summary-value" id="tax">$0.00</span>
                 </div>
                 <div
                   class="summary-row discount-row"
                   id="discount-row"
                   style="display: none"
                 >
-                  <span>Discount</span>
-                  <span id="discount-amount">-$0.00</span>
+                  <span class="summary-label">Discount</span>
+                  <span class="summary-value" id="discount-amount">-$0.00</span>
                 </div>
                 <div class="summary-row total-row">
-                  <span>Total</span>
-                  <span id="total">$0.00</span>
+                  <span class="summary-label">Total</span>
+                  <span class="summary-value summary-total" id="total"
+                    >$0.00</span
+                  >
                 </div>
               </div>
-
-              <div class="promo-code-section">
-                <div class="promo-input-group">
-                  <input
-                    type="text"
-                    id="promo-code-input"
-                    placeholder="Enter promo code"
-                    class="promo-input"
-                  />
-                  <button class="apply-promo-btn" id="apply-promo-btn">
-                    Apply
-                  </button>
-                </div>
-                <div class="promo-message" id="promo-message"></div>
-              </div>
-
               <div class="checkout-actions">
                 <button
-                  class="proceed-checkout-btn primary-btn"
+                  class="proceed-checkout-btn primary-btn wow-checkout-btn"
                   id="proceed-checkout-btn"
                 >
                   <span class="lock-icon">🔒</span>
@@ -118,8 +107,7 @@
                 </div>
               </div>
             </div>
-
-            <div class="cart-benefits">
+            <div class="cart-benefits wow-benefits">
               <div class="benefit-item">
                 <span class="benefit-icon">⚡</span>
                 <div class="benefit-content">
@@ -144,13 +132,6 @@
             </div>
           </div>
         </div>
-
-        <div class="recommended-games-section">
-          <h2>You Might Also Like</h2>
-          <div class="recommended-games-grid" id="recommended-games">
-            <!-- Recommended games will be loaded dynamically -->
-          </div>
-        </div>
       </div>
     </main>
 
@@ -161,105 +142,91 @@
     <!-- Checkout Modal -->
     <div class="checkout-modal" id="checkout-modal">
       <div class="modal-content">
-        <div class="modal-header">
-          <h2>Checkout</h2>
-          <button class="modal-close" id="checkout-modal-close">&times;</button>
-        </div>
-
-        <div class="checkout-form" id="checkout-form">
-          <div class="form-section">
-            <h3>Contact Information</h3>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" required />
-              </div>
+        <button class="modal-close" id="checkout-modal-close" title="Close">
+          &times;
+        </button>
+        <div class="modal-body">
+          <div class="checkout-view" id="checkout-view">
+            <div class="modal-header">
+              <h2 class="modal-title">
+                <span class="modal-title-icon">🎮</span>
+                Complete Your Order
+              </h2>
+              <p class="modal-subtitle">
+                Just a few details to get your games to you instantly.
+              </p>
             </div>
-          </div>
 
-          <div class="form-section">
-            <h3>Payment Information</h3>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="card-number">Card Number</label>
-                <input
-                  type="text"
-                  id="card-number"
-                  placeholder="1234 5678 9012 3456"
-                  required
-                />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="expiry">Expiry Date</label>
-                <input type="text" id="expiry" placeholder="MM/YY" required />
-              </div>
-              <div class="form-group">
-                <label for="cvv">CVV</label>
-                <input type="text" id="cvv" placeholder="123" required />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h3>Billing Address</h3>
-            <div class="form-row">
+            <form class="checkout-form" id="checkout-form" novalidate>
               <div class="form-group">
                 <label for="full-name">Full Name</label>
-                <input type="text" id="full-name" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" id="address" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" required />
+                <input
+                  type="text"
+                  id="full-name"
+                  name="fullname"
+                  placeholder="e.g., Alex Doe"
+                  required
+                />
+                <div class="form-error-icon">!</div>
               </div>
               <div class="form-group">
-                <label for="postal-code">Postal Code</label>
-                <input type="text" id="postal-code" required />
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  required
+                />
+                <div class="form-error-icon">!</div>
               </div>
-            </div>
-            <div class="form-row">
               <div class="form-group">
-                <label for="country">Country</label>
-                <select id="country" required>
-                  <option value="">Select Country</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="UK">United Kingdom</option>
-                  <option value="DE">Germany</option>
-                  <option value="FR">France</option>
-                  <option value="JP">Japan</option>
-                  <option value="AU">Australia</option>
-                </select>
+                <label for="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="(123) 456-7890"
+                  required
+                />
+                <div class="form-error-icon">!</div>
               </div>
-            </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn secondary-btn"
+                  id="checkout-modal-cancel"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn primary-btn"
+                  id="checkout-submit"
+                >
+                  <span class="btn-icon">🚀</span>
+                  Place Order
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div class="form-actions">
-            <button
-              type="button"
-              class="cancel-btn secondary-btn"
-              id="cancel-checkout"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="place-order-btn primary-btn"
-              id="place-order-btn"
-            >
-              <span class="spinner" id="order-spinner" style="display: none"
-                >⏳</span
-              >
-              Place Order
+          <div class="success-view" id="success-view" style="display: none">
+            <div class="success-icon">
+              <svg viewBox="0 0 100 100">
+                <circle class="checkmark-circle-bg" cx="50" cy="50" r="46" />
+                <circle class="checkmark-circle" cx="50" cy="50" r="46" />
+                <path class="checkmark-check" d="M34,50l12,12l20,-20" />
+              </svg>
+            </div>
+            <h2 class="success-title">Order Placed!</h2>
+            <p class="success-message">
+              Thank you for your purchase! A confirmation has been sent to your
+              email.
+            </p>
+            <button class="btn primary-btn" id="close-success-btn">
+              Continue Shopping
             </button>
           </div>
         </div>
