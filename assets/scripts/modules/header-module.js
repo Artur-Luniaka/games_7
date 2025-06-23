@@ -95,6 +95,10 @@ const headerModule = {
 
     navLinks.forEach((link) => {
       link.addEventListener("click", (event) => {
+        // Закрывать мобильное меню при любом переходе по ссылке в мобильном меню
+        if (window.innerWidth <= 768 && this.isMenuOpen) {
+          this.closeMobileMenu();
+        }
         this.handleNavigation(event);
       });
     });

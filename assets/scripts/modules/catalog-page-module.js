@@ -3,7 +3,14 @@
 
 const catalogPageModule = {
   gamesData: [],
-  currentFilter: "all",
+  filters: {
+    platforms: ["PC", "Xbox"],
+    genres: [],
+    price: 100,
+    ratings: [],
+    availability: [],
+    search: "",
+  },
   currentSort: "featured",
 
   async initialize() {
@@ -11,6 +18,8 @@ const catalogPageModule = {
       await this.loadGamesData();
       this.renderFilteredGames();
       this.attachEventListeners();
+      this.initGenreFilters();
+      this.initFilterUI();
     } catch (error) {
       console.error("Failed to initialize catalog page:", error);
     }
@@ -32,14 +41,64 @@ const catalogPageModule = {
 
   renderFilteredGames() {
     let filteredGames = [...this.gamesData];
+    const { platforms, genres, price, ratings, availability, search } =
+      this.filters;
 
-    // Apply filters
-    if (this.currentFilter !== "all") {
+    // Поиск
+    if (search && search.trim()) {
       filteredGames = filteredGames.filter(
         (game) =>
-          game.genres.includes(this.currentFilter) ||
-          game.platforms.includes(this.currentFilter)
+          game.title.toLowerCase().includes(search.toLowerCase()) ||
+          game.developer.toLowerCase().includes(search.toLowerCase()) ||
+          game.genres.some((genre) =>
+            genre.toLowerCase().includes(search.toLowerCase())
+          ) ||
+          game.tags.some((tag) =>
+            tag.toLowerCase().includes(search.toLowerCase())
+          )
       );
+    }
+
+    // Платформы
+    if (platforms.length > 0) {
+      filteredGames = filteredGames.filter((game) =>
+        game.platforms.some((p) => platforms.includes(p))
+      );
+    }
+
+    // Жанры
+    if (genres.length > 0) {
+      filteredGames = filteredGames.filter((game) =>
+        game.genres.some((g) => genres.includes(g))
+      );
+    }
+
+    // Цена
+    if (typeof price === "number") {
+      filteredGames = filteredGames.filter((game) => game.price <= price);
+    }
+
+    // Рейтинг
+    if (ratings.length > 0) {
+      filteredGames = filteredGames.filter((game) =>
+        ratings.some((r) => game.rating >= parseFloat(r))
+      );
+    }
+
+    // Доступность
+    if (availability.length > 0) {
+      filteredGames = filteredGames.filter((game) => {
+        return availability.some((a) => {
+          if (a === "on-sale") return game.discount_percent > 0;
+          if (a === "new-release")
+            return (
+              new Date(game.release_date) >
+              new Date(Date.now() - 1000 * 60 * 60 * 24 * 30)
+            );
+          if (a === "pre-order") return game.tags.includes("Pre-Order");
+          return false;
+        });
+      });
     }
 
     // Apply sorting
@@ -301,14 +360,44 @@ const catalogPageModule = {
 
     if (searchInput) {
       searchInput.addEventListener("input", (event) => {
-        this.searchGames(event.target.value);
+        this.filters.search = event.target.value;
+        this.renderFilteredGames();
       });
     }
 
     if (searchBtn) {
       searchBtn.addEventListener("click", () => {
         const query = searchInput ? searchInput.value : "";
-        this.searchGames(query);
+        this.filters.search = query;
+        this.renderFilteredGames();
+      });
+    }
+
+    // Кнопка применения фильтров
+    const applyBtn = document.getElementById("apply-filters");
+    if (applyBtn) {
+      applyBtn.addEventListener("click", () => {
+        this.collectFiltersFromUI();
+        this.renderFilteredGames();
+      });
+    }
+    // Кнопка очистки фильтров
+    const clearBtn = document.getElementById("clear-filters");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        this.resetFilters();
+        this.renderFilteredGames();
+        this.initFilterUI();
+      });
+    }
+    // Слайдер цены
+    const priceSlider = document.getElementById("price-slider");
+    const priceValue = document.getElementById("price-value");
+    if (priceSlider && priceValue) {
+      priceSlider.addEventListener("input", (e) => {
+        priceValue.textContent = `$${e.target.value}${
+          e.target.value == 100 ? "+" : ""
+        }`;
       });
     }
   },
@@ -349,33 +438,113 @@ const catalogPageModule = {
     window.location.href = `game-detail.html?id=${gameId}`;
   },
 
-  filterGames(filter) {
-    this.currentFilter = filter;
-    this.renderFilteredGames();
-  },
-
   sortGames(sortBy) {
     this.currentSort = sortBy;
     this.renderFilteredGames();
   },
 
-  searchGames(query) {
-    if (!query.trim()) {
-      this.renderFilteredGames();
-      return;
-    }
-
-    const searchResults = this.gamesData.filter(
-      (game) =>
-        game.title.toLowerCase().includes(query.toLowerCase()) ||
-        game.developer.toLowerCase().includes(query.toLowerCase()) ||
-        game.genres.some((genre) =>
-          genre.toLowerCase().includes(query.toLowerCase())
-        ) ||
-        game.tags.some((tag) => tag.toLowerCase().includes(query.toLowerCase()))
+  collectFiltersFromUI() {
+    // Платформы
+    const platformCheckboxes = document.querySelectorAll(
+      '.filter-section input[type="checkbox"][value="PC"], .filter-section input[type="checkbox"][value="Xbox"]'
     );
+    this.filters.platforms = Array.from(platformCheckboxes)
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+    // Жанры
+    const genreCheckboxes = document.querySelectorAll(
+      '#genre-filters input[type="checkbox"]'
+    );
+    this.filters.genres = Array.from(genreCheckboxes)
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+    // Цена
+    const priceSlider = document.getElementById("price-slider");
+    this.filters.price = priceSlider ? parseInt(priceSlider.value) : 100;
+    // Рейтинг
+    const ratingCheckboxes = document.querySelectorAll(
+      '.filter-section input[type="checkbox"][value="4.5"], .filter-section input[type="checkbox"][value="4.0"], .filter-section input[type="checkbox"][value="3.5"]'
+    );
+    this.filters.ratings = Array.from(ratingCheckboxes)
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+    // Доступность
+    const availCheckboxes = document.querySelectorAll(
+      '.filter-section input[type="checkbox"][value="on-sale"], .filter-section input[type="checkbox"][value="new-release"], .filter-section input[type="checkbox"][value="pre-order"]'
+    );
+    this.filters.availability = Array.from(availCheckboxes)
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+  },
 
-    this.renderGames(searchResults);
+  resetFilters() {
+    this.filters = {
+      platforms: ["PC", "Xbox"],
+      genres: [],
+      price: 100,
+      ratings: [],
+      availability: [],
+      search: "",
+    };
+  },
+
+  initGenreFilters() {
+    // Автоматически подгружать жанры из данных
+    const genreFilters = document.getElementById("genre-filters");
+    if (!genreFilters) return;
+    const allGenres = new Set();
+    this.gamesData.forEach((game) =>
+      game.genres.forEach((g) => allGenres.add(g))
+    );
+    genreFilters.innerHTML = Array.from(allGenres)
+      .sort()
+      .map(
+        (genre) =>
+          `<label class="filter-option"><input type="checkbox" value="${genre}"><span class="checkmark"></span>${genre}</label>`
+      )
+      .join("");
+  },
+
+  initFilterUI() {
+    // Сбросить все чекбоксы и слайдеры в UI
+    // Платформы
+    const platformCheckboxes = document.querySelectorAll(
+      '.filter-section input[type="checkbox"][value="PC"], .filter-section input[type="checkbox"][value="Xbox"]'
+    );
+    platformCheckboxes.forEach((cb) => {
+      cb.checked = true;
+    });
+    // Жанры
+    const genreCheckboxes = document.querySelectorAll(
+      '#genre-filters input[type="checkbox"]'
+    );
+    genreCheckboxes.forEach((cb) => {
+      cb.checked = false;
+    });
+    // Цена
+    const priceSlider = document.getElementById("price-slider");
+    const priceValue = document.getElementById("price-value");
+    if (priceSlider && priceValue) {
+      priceSlider.value = 100;
+      priceValue.textContent = "$100+";
+    }
+    // Рейтинг
+    const ratingCheckboxes = document.querySelectorAll(
+      '.filter-section input[type="checkbox"][value="4.5"], .filter-section input[type="checkbox"][value="4.0"], .filter-section input[type="checkbox"][value="3.5"]'
+    );
+    ratingCheckboxes.forEach((cb) => {
+      cb.checked = false;
+    });
+    // Доступность
+    const availCheckboxes = document.querySelectorAll(
+      '.filter-section input[type="checkbox"][value="on-sale"], .filter-section input[type="checkbox"][value="new-release"], .filter-section input[type="checkbox"][value="pre-order"]'
+    );
+    availCheckboxes.forEach((cb) => {
+      cb.checked = false;
+    });
+    // Поиск
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) searchInput.value = "";
   },
 };
 

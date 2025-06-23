@@ -288,9 +288,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       closeButton.addEventListener("click", () => this.closeCheckoutModal());
       cancelButton.addEventListener("click", () => this.closeCheckoutModal());
-      closeSuccessBtn.addEventListener("click", () =>
-        this.closeCheckoutModal()
-      );
+      closeSuccessBtn.addEventListener("click", () => {
+        window.location.href = "catalog.html";
+      });
 
       // Clear cart button functionality
       if (clearCartBtn) {
