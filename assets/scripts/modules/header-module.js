@@ -21,40 +21,37 @@ const headerModule = {
                 <div class="header-container">
                     <div class="header-logo">
                         <a href="index.html" class="logo-link">
-                            <img src="assets/images/pixelvault-logo.png" alt="PixelVault Gaming Store" class="logo-image">
-                            <span class="logo-text">PixelVault</span>
+                            <img src="assets/public/logo-icon.png" alt="PixelVault Gaming Store" class="logo-main-icon">
                         </a>
                     </div>
                     
                     <nav class="header-navigation" role="navigation">
                         <ul class="nav-menu">
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link">Home</a>
+                                <a href="index.html" class="nav-link"><span class="gradient-text">Home</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="catalog.html" class="nav-link">Games</a>
+                                <a href="catalog.html" class="nav-link"><span class="gradient-text">Games</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="about.html" class="nav-link">About</a>
+                                <a href="about.html" class="nav-link"><span class="gradient-text">About</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="contact.html" class="nav-link">Contact</a>
+                                <a href="contact.html" class="nav-link"><span class="gradient-text">Contact</span></a>
                             </li>
                         </ul>
                     </nav>
                     
                     <div class="header-actions">
                         <div class="cart-container">
-                            <button class="cart-button" aria-label="Shopping Cart">
-                                <span class="cart-icon">🛒</span>
+                            <a href="cart.html" class="cart-button" aria-label="Shopping Cart">
+                                <img src="assets/public/basket.png" alt="Cart" class="cart-icon-img">
                                 <span class="cart-counter" id="cart-counter">0</span>
-                            </button>
+                            </a>
                         </div>
                         
                         <button class="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
-                            <span class="hamburger-line"></span>
-                            <span class="hamburger-line"></span>
-                            <span class="hamburger-line"></span>
+                            <img src="assets/public/burger-icon.png" alt="Menu" class="burger-icon">
                         </button>
                     </div>
                 </div>
@@ -62,16 +59,16 @@ const headerModule = {
                 <div class="mobile-menu" id="mobile-menu">
                     <ul class="mobile-nav-menu">
                         <li class="mobile-nav-item">
-                            <a href="index.html" class="mobile-nav-link">Home</a>
+                            <a href="index.html" class="mobile-nav-link"><span class="gradient-text">Home</span></a>
                         </li>
                         <li class="mobile-nav-item">
-                            <a href="catalog.html" class="mobile-nav-link">Games</a>
+                            <a href="catalog.html" class="mobile-nav-link"><span class="gradient-text">Games</span></a>
                         </li>
                         <li class="mobile-nav-item">
-                            <a href="about.html" class="mobile-nav-link">About</a>
+                            <a href="about.html" class="mobile-nav-link"><span class="gradient-text">About</span></a>
                         </li>
                         <li class="mobile-nav-item">
-                            <a href="contact.html" class="mobile-nav-link">Contact</a>
+                            <a href="contact.html" class="mobile-nav-link"><span class="gradient-text">Contact</span></a>
                         </li>
                     </ul>
                 </div>
@@ -82,18 +79,11 @@ const headerModule = {
   attachEventListeners() {
     const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
     const mobileMenu = document.getElementById("mobile-menu");
-    const cartButton = document.querySelector(".cart-button");
     const navLinks = document.querySelectorAll(".nav-link, .mobile-nav-link");
 
     if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener("click", () => {
         this.toggleMobileMenu();
-      });
-    }
-
-    if (cartButton) {
-      cartButton.addEventListener("click", () => {
-        this.openCart();
       });
     }
 
@@ -105,10 +95,15 @@ const headerModule = {
 
     // Close mobile menu when clicking outside
     document.addEventListener("click", (event) => {
+      if (!this.isMenuOpen) return; // Only run if the menu is open
+
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+
       const isClickInsideMenu = mobileMenu?.contains(event.target);
       const isClickOnToggle = mobileMenuToggle?.contains(event.target);
 
-      if (this.isMenuOpen && !isClickInsideMenu && !isClickOnToggle) {
+      if (!isClickInsideMenu && !isClickOnToggle) {
         this.closeMobileMenu();
       }
     });
@@ -185,14 +180,6 @@ const headerModule = {
       // In a real app, this would navigate to the page
       console.log(`Navigating to: ${href}`);
     }, 300);
-  },
-
-  openCart() {
-    // This will be handled by the cart management module
-    const cartEvent = new CustomEvent("openCart", {
-      detail: { items: this.cartItems },
-    });
-    document.dispatchEvent(cartEvent);
   },
 
   addToCart(gameData) {

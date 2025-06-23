@@ -431,7 +431,7 @@
 }
 
 .browse-games-btn:hover {
-  transform: translateY(-2px);
+  transform: scale(1.05);
   box-shadow: 0 8px 25px rgba(0, 180, 216, 0.3);
 }
 
@@ -440,26 +440,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: #64748b;
 }
 
 .loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #e5e7eb;
-  border-top: 4px solid #00b4d8;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(0, 180, 216, 0.3);
+  border-top-color: var(--primary-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin-right: 1rem;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
@@ -571,4 +568,42 @@
   .browse-games-btn:hover {
     transform: none;
   }
+}
+
+/* Checkout Modal Styles */
+.checkout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.checkout-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.checkout-modal .modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.checkout-modal.active .modal-content {
+  transform: scale(1);
 }

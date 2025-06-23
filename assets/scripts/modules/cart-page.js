@@ -1,508 +1,199 @@
-// Cart Page Module
-class CartPageManager {
-  constructor() {
-    this.cartItems = [];
-    this.promoCode = null;
-    this.discountAmount = 0;
-    this.init();
-  }
+// Cart Page Module - PixelVault Gaming Store
 
-  init() {
-    this.loadCartItems();
-    this.setupEventListeners();
-    this.renderCartItems();
-    this.updateCartSummary();
-    this.loadRecommendedGames();
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const cartPageModule = {
+    cartItems: [],
+    cartItemsContainer: document.getElementById("cart-items-container"),
+    cartSummaryContainer: document.getElementById("cart-summary-container"),
 
-  loadCartItems() {
-    const savedCart = localStorage.getItem("pixelVaultCart");
-    if (savedCart) {
-      this.cartItems = JSON.parse(savedCart);
-    }
-  }
+    initialize() {
+      this.loadCartFromStorage();
+      this.renderCartPage();
+      this.setupCheckoutModalEvents();
+    },
 
-  setupEventListeners() {
-    // Clear cart button
-    const clearCartBtn = document.getElementById("clear-cart-btn");
-    if (clearCartBtn) {
-      clearCartBtn.addEventListener("click", () => this.clearCart());
-    }
+    loadCartFromStorage() {
+      try {
+        const savedCart = localStorage.getItem("pixelvault-cart");
+        this.cartItems = savedCart ? JSON.parse(savedCart) : [];
+      } catch (error) {
+        console.error("Failed to load cart from localStorage:", error);
+        this.cartItems = [];
+      }
+    },
 
-    // Proceed to checkout button
-    const proceedCheckoutBtn = document.getElementById("proceed-checkout-btn");
-    if (proceedCheckoutBtn) {
-      proceedCheckoutBtn.addEventListener("click", () =>
-        this.openCheckoutModal()
-      );
-    }
+    renderCartPage() {
+      if (!this.cartItemsContainer || !this.cartSummaryContainer) {
+        console.error("Cart containers not found!");
+        return;
+      }
 
-    // Promo code
-    const applyPromoBtn = document.getElementById("apply-promo-btn");
-    const promoInput = document.getElementById("promo-code-input");
+      if (this.cartItems.length === 0) {
+        this.renderEmptyCart();
+      } else {
+        this.renderCartItems();
+        this.renderCartSummary();
+      }
+    },
 
-    if (applyPromoBtn) {
-      applyPromoBtn.addEventListener("click", () => this.applyPromoCode());
-    }
+    renderEmptyCart() {
+      this.cartItemsContainer.innerHTML = `
+        <div class="empty-cart-message">
+          <h2>Your Cart is Empty</h2>
+          <p>You haven't added any games to your cart yet.</p>
+          <a href="catalog.html" class="btn primary-btn">Explore Games</a>
+        </div>
+      `;
+      this.cartSummaryContainer.style.display = "none";
+    },
 
-    if (promoInput) {
-      promoInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          this.applyPromoCode();
+    renderCartItems() {
+      this.cartItemsContainer.innerHTML = this.cartItems
+        .map(
+          (item) => `
+          <div class="cart-page-item" data-game-id="${item.id}">
+            <div class="item-details">
+              <div class="item-image" style="background: linear-gradient(135deg, #e67e22, #f39c12);"></div>
+              <div>
+                <h3 class="item-title">${item.title}</h3>
+                <p class="item-developer">${item.developer}</p>
+                <button class="item-remove-btn" data-game-id="${
+                  item.id
+                }">Remove</button>
+              </div>
+            </div>
+            <div class="item-price">$${item.price.toFixed(2)}</div>
+            <div class="item-quantity">
+              <button class="quantity-btn" data-action="decrease" data-game-id="${
+                item.id
+              }">-</button>
+              <span>${item.quantity}</span>
+              <button class="quantity-btn" data-action="increase" data-game-id="${
+                item.id
+              }">+</button>
+            </div>
+            <div class="item-total-price">$${(
+              item.price * item.quantity
+            ).toFixed(2)}</div>
+          </div>
+        `
+        )
+        .join("");
+
+      this.attachItemEventListeners();
+    },
+
+    renderCartSummary() {
+      const subtotal = this.calculateSubtotal();
+      const tax = subtotal * 0.08; // Example 8% tax
+      const total = subtotal + tax;
+
+      this.cartSummaryContainer.innerHTML = `
+        <h3>Order Summary</h3>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>$${subtotal.toFixed(2)}</span>
+        </div>
+        <div class="summary-row">
+          <span>Estimated Tax</span>
+          <span>$${tax.toFixed(2)}</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span>$${total.toFixed(2)}</span>
+        </div>
+        <button class="btn primary-btn checkout-btn-page">Proceed to Checkout</button>
+      `;
+
+      const checkoutButton =
+        this.cartSummaryContainer.querySelector(".checkout-btn-page");
+      if (checkoutButton) {
+        checkoutButton.addEventListener("click", () =>
+          this.openCheckoutModal()
+        );
+      }
+    },
+
+    attachItemEventListeners() {
+      this.cartItemsContainer.addEventListener("click", (event) => {
+        const target = event.target;
+
+        if (target.matches(".item-remove-btn")) {
+          const gameId = target.dataset.gameId;
+          this.removeFromCart(gameId);
+        }
+
+        if (target.matches(".quantity-btn")) {
+          const gameId = target.dataset.gameId;
+          const action = target.dataset.action;
+          this.updateQuantity(gameId, action === "increase" ? 1 : -1);
         }
       });
-    }
+    },
 
-    // Checkout modal events
-    this.setupCheckoutModalEvents();
+    updateQuantity(gameId, change) {
+      const item = this.cartItems.find((i) => i.id === gameId);
+      if (!item) return;
 
-    // Listen for cart updates from other pages
-    window.addEventListener("addToCart", (e) => {
-      this.addItemToCart(e.detail);
-    });
-  }
+      item.quantity += change;
 
-  renderCartItems() {
-    const cartItemsList = document.getElementById("cart-items-list");
-    const cartItemsCount = document.getElementById("cart-items-count");
-    const emptyCartMessage = document.getElementById("empty-cart-message");
-
-    if (!cartItemsList) return;
-
-    if (this.cartItems.length === 0) {
-      cartItemsList.innerHTML = "";
-      if (emptyCartMessage) {
-        emptyCartMessage.style.display = "block";
-      }
-      if (cartItemsCount) {
-        cartItemsCount.textContent = "0";
-      }
-      return;
-    }
-
-    if (emptyCartMessage) {
-      emptyCartMessage.style.display = "none";
-    }
-
-    if (cartItemsCount) {
-      cartItemsCount.textContent = this.cartItems.length;
-    }
-
-    cartItemsList.innerHTML = "";
-
-    this.cartItems.forEach((item, index) => {
-      const cartItemElement = this.createCartItemElement(item, index);
-      cartItemsList.appendChild(cartItemElement);
-    });
-  }
-
-  createCartItemElement(item, index) {
-    const cartItem = document.createElement("div");
-    cartItem.className = "cart-item";
-
-    cartItem.innerHTML = `
-      <img src="${item.image}" alt="${item.title}" class="cart-item-image" />
-      <div class="cart-item-details">
-        <h3>${item.title}</h3>
-        <div class="cart-item-meta">Digital Download</div>
-      </div>
-      <div class="cart-item-price">$${(item.price * item.quantity).toFixed(
-        2
-      )}</div>
-      <div class="cart-item-actions">
-        <div class="quantity-controls">
-          <button class="quantity-btn" data-action="decrease" data-index="${index}">-</button>
-          <span class="quantity-display">${item.quantity}</span>
-          <button class="quantity-btn" data-action="increase" data-index="${index}">+</button>
-        </div>
-        <button class="remove-item-btn" data-index="${index}">Remove</button>
-      </div>
-    `;
-
-    // Add event listeners for quantity controls
-    const decreaseBtn = cartItem.querySelector('[data-action="decrease"]');
-    const increaseBtn = cartItem.querySelector('[data-action="increase"]');
-    const removeBtn = cartItem.querySelector(".remove-item-btn");
-
-    decreaseBtn.addEventListener("click", () => this.updateQuantity(index, -1));
-    increaseBtn.addEventListener("click", () => this.updateQuantity(index, 1));
-    removeBtn.addEventListener("click", () => this.removeItem(index));
-
-    return cartItem;
-  }
-
-  updateQuantity(index, change) {
-    const newQuantity = this.cartItems[index].quantity + change;
-
-    if (newQuantity <= 0) {
-      this.removeItem(index);
-    } else {
-      this.cartItems[index].quantity = newQuantity;
-      this.saveCart();
-      this.renderCartItems();
-      this.updateCartSummary();
-    }
-  }
-
-  removeItem(index) {
-    this.cartItems.splice(index, 1);
-    this.saveCart();
-    this.renderCartItems();
-    this.updateCartSummary();
-    this.showNotification("Item removed from cart", "info");
-  }
-
-  clearCart() {
-    if (this.cartItems.length === 0) return;
-
-    if (confirm("Are you sure you want to clear your cart?")) {
-      this.cartItems = [];
-      this.promoCode = null;
-      this.discountAmount = 0;
-      this.saveCart();
-      this.renderCartItems();
-      this.updateCartSummary();
-      this.clearPromoMessage();
-      this.showNotification("Cart cleared", "info");
-    }
-  }
-
-  updateCartSummary() {
-    const subtotal = this.calculateSubtotal();
-    const tax = this.calculateTax(subtotal);
-    const total = subtotal + tax - this.discountAmount;
-
-    // Update summary items
-    this.renderSummaryItems();
-
-    // Update totals
-    const subtotalElement = document.getElementById("subtotal");
-    const taxElement = document.getElementById("tax");
-    const totalElement = document.getElementById("total");
-    const discountRow = document.getElementById("discount-row");
-    const discountAmount = document.getElementById("discount-amount");
-
-    if (subtotalElement)
-      subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-    if (taxElement) taxElement.textContent = `$${tax.toFixed(2)}`;
-    if (totalElement) totalElement.textContent = `$${total.toFixed(2)}`;
-
-    // Show/hide discount row
-    if (discountRow && discountAmount) {
-      if (this.discountAmount > 0) {
-        discountRow.style.display = "flex";
-        discountAmount.textContent = `-$${this.discountAmount.toFixed(2)}`;
+      if (item.quantity <= 0) {
+        this.removeFromCart(gameId);
       } else {
-        discountRow.style.display = "none";
+        this.saveCartToStorage();
+        this.renderCartPage();
       }
-    }
+    },
 
-    // Update checkout button state
-    const proceedCheckoutBtn = document.getElementById("proceed-checkout-btn");
-    if (proceedCheckoutBtn) {
-      proceedCheckoutBtn.disabled = this.cartItems.length === 0;
-    }
-  }
+    removeFromCart(gameId) {
+      this.cartItems = this.cartItems.filter((item) => item.id !== gameId);
+      this.saveCartToStorage();
+      this.renderCartPage();
+    },
 
-  renderSummaryItems() {
-    const summaryItems = document.getElementById("summary-items");
-    if (!summaryItems) return;
+    saveCartToStorage() {
+      localStorage.setItem("pixelvault-cart", JSON.stringify(this.cartItems));
+    },
 
-    summaryItems.innerHTML = "";
-
-    this.cartItems.forEach((item) => {
-      const summaryItem = document.createElement("div");
-      summaryItem.className = "summary-item";
-      summaryItem.innerHTML = `
-        <span class="summary-item-name">${item.title} (x${item.quantity})</span>
-        <span class="summary-item-price">$${(
-          item.price * item.quantity
-        ).toFixed(2)}</span>
-      `;
-      summaryItems.appendChild(summaryItem);
-    });
-  }
-
-  calculateSubtotal() {
-    return this.cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-  }
-
-  calculateTax(subtotal) {
-    return subtotal * 0.08; // 8% tax rate
-  }
-
-  applyPromoCode() {
-    const promoInput = document.getElementById("promo-code-input");
-    const promoMessage = document.getElementById("promo-message");
-
-    if (!promoInput || !promoMessage) return;
-
-    const code = promoInput.value.trim().toUpperCase();
-
-    if (!code) {
-      this.showPromoMessage("Please enter a promo code", "error");
-      return;
-    }
-
-    // Simulate promo code validation
-    const validPromoCodes = {
-      WELCOME10: 0.1,
-      GAMER20: 0.2,
-      SAVE15: 0.15,
-    };
-
-    if (validPromoCodes[code]) {
-      this.promoCode = code;
-      const subtotal = this.calculateSubtotal();
-      this.discountAmount = subtotal * validPromoCodes[code];
-      this.updateCartSummary();
-      this.showPromoMessage(
-        `Promo code applied! ${validPromoCodes[code] * 100}% discount`,
-        "success"
+    calculateSubtotal() {
+      return this.cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
       );
-      promoInput.disabled = true;
-    } else {
-      this.showPromoMessage("Invalid promo code", "error");
-    }
-  }
+    },
 
-  showPromoMessage(message, type) {
-    const promoMessage = document.getElementById("promo-message");
-    if (promoMessage) {
-      promoMessage.textContent = message;
-      promoMessage.className = `promo-message ${type}`;
-    }
-  }
+    openCheckoutModal() {
+      const modal = document.getElementById("checkout-modal");
+      if (modal) {
+        modal.classList.add("active");
+      }
+    },
 
-  clearPromoMessage() {
-    const promoMessage = document.getElementById("promo-message");
-    if (promoMessage) {
-      promoMessage.textContent = "";
-      promoMessage.className = "promo-message";
-    }
-  }
+    closeCheckoutModal() {
+      const modal = document.getElementById("checkout-modal");
+      if (modal) {
+        modal.classList.remove("active");
+      }
+    },
 
-  setupCheckoutModalEvents() {
-    const checkoutModal = document.getElementById("checkout-modal");
-    const modalClose = document.getElementById("checkout-modal-close");
-    const cancelBtn = document.getElementById("cancel-checkout");
-    const checkoutForm = document.getElementById("checkout-form");
+    setupCheckoutModalEvents() {
+      const modal = document.getElementById("checkout-modal");
+      if (!modal) return;
 
-    if (modalClose) {
-      modalClose.addEventListener("click", () => this.closeCheckoutModal());
-    }
+      const closeButton = modal.querySelector("#checkout-modal-close");
+      const cancelButton = modal.querySelector("#cancel-checkout");
 
-    if (cancelBtn) {
-      cancelBtn.addEventListener("click", () => this.closeCheckoutModal());
-    }
+      closeButton?.addEventListener("click", () => this.closeCheckoutModal());
+      cancelButton?.addEventListener("click", () => this.closeCheckoutModal());
 
-    if (checkoutModal) {
-      checkoutModal.addEventListener("click", (e) => {
-        if (e.target === checkoutModal) {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
           this.closeCheckoutModal();
         }
       });
-    }
+    },
+  };
 
-    if (checkoutForm) {
-      checkoutForm.addEventListener("submit", (e) => this.handleCheckout(e));
-    }
-  }
-
-  openCheckoutModal() {
-    const checkoutModal = document.getElementById("checkout-modal");
-    if (checkoutModal) {
-      checkoutModal.classList.add("active");
-      document.body.style.overflow = "hidden";
-    }
-  }
-
-  closeCheckoutModal() {
-    const checkoutModal = document.getElementById("checkout-modal");
-    if (checkoutModal) {
-      checkoutModal.classList.remove("active");
-      document.body.style.overflow = "auto";
-    }
-  }
-
-  async handleCheckout(e) {
-    e.preventDefault();
-
-    const placeOrderBtn = document.getElementById("place-order-btn");
-    const spinner = document.getElementById("order-spinner");
-
-    if (placeOrderBtn && spinner) {
-      placeOrderBtn.disabled = true;
-      spinner.style.display = "inline";
-    }
-
-    try {
-      // Simulate payment processing
-      await this.simulatePaymentProcessing();
-
-      // Process order
-      this.processOrder();
-
-      // Close modal and redirect
-      this.closeCheckoutModal();
-      this.showNotification("Order placed successfully!", "success");
-
-      // Clear cart and redirect to confirmation
-      setTimeout(() => {
-        this.cartItems = [];
-        this.saveCart();
-        window.location.href = "index.html?order=success";
-      }, 2000);
-    } catch (error) {
-      this.showNotification("Payment failed. Please try again.", "error");
-    } finally {
-      if (placeOrderBtn && spinner) {
-        placeOrderBtn.disabled = false;
-        spinner.style.display = "none";
-      }
-    }
-  }
-
-  simulatePaymentProcessing() {
-    return new Promise((resolve) => {
-      setTimeout(resolve, 2000);
-    });
-  }
-
-  processOrder() {
-    // Generate order number
-    const orderNumber = "PV" + Date.now().toString().slice(-8);
-
-    // Save order to localStorage (in a real app, this would go to a database)
-    const order = {
-      orderNumber,
-      items: this.cartItems,
-      subtotal: this.calculateSubtotal(),
-      tax: this.calculateTax(this.calculateSubtotal()),
-      discount: this.discountAmount,
-      total:
-        this.calculateSubtotal() +
-        this.calculateTax(this.calculateSubtotal()) -
-        this.discountAmount,
-      date: new Date().toISOString(),
-      status: "completed",
-    };
-
-    const orders = JSON.parse(localStorage.getItem("pixelVaultOrders") || "[]");
-    orders.push(order);
-    localStorage.setItem("pixelVaultOrders", JSON.stringify(orders));
-  }
-
-  async loadRecommendedGames() {
-    try {
-      const response = await fetch("assets/data/games-catalog.json");
-      const gamesData = await response.json();
-
-      // Get random games that are not in cart
-      const cartGameIds = this.cartItems.map((item) => item.id);
-      const availableGames = gamesData.games.filter(
-        (game) => !cartGameIds.includes(game.id)
-      );
-      const recommendedGames = this.shuffleArray(availableGames).slice(0, 4);
-
-      this.renderRecommendedGames(recommendedGames);
-    } catch (error) {
-      console.error("Error loading recommended games:", error);
-    }
-  }
-
-  renderRecommendedGames(games) {
-    const recommendedContainer = document.getElementById("recommended-games");
-    if (!recommendedContainer) return;
-
-    recommendedContainer.innerHTML = "";
-
-    games.forEach((game) => {
-      const gameCard = this.createRecommendedGameCard(game);
-      recommendedContainer.appendChild(gameCard);
-    });
-  }
-
-  createRecommendedGameCard(game) {
-    const card = document.createElement("div");
-    card.className = "game-card";
-    card.addEventListener("click", () => {
-      window.location.href = `game-detail.html?id=${game.id}`;
-    });
-
-    card.innerHTML = `
-      <div class="game-card-image">
-        <img src="${game.media.coverImage}" alt="${game.title}" />
-        <div class="game-card-overlay">
-          <button class="quick-add-btn" data-game-id="${
-            game.id
-          }">Add to Cart</button>
-        </div>
-      </div>
-      <div class="game-card-content">
-        <h3>${game.title}</h3>
-        <div class="game-card-price">$${game.price.toFixed(2)}</div>
-      </div>
-    `;
-
-    // Add quick add to cart functionality
-    const quickAddBtn = card.querySelector(".quick-add-btn");
-    quickAddBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      this.addItemToCart({
-        id: game.id,
-        title: game.title,
-        price: game.price,
-        image: game.media.coverImage,
-        quantity: 1,
-      });
-    });
-
-    return card;
-  }
-
-  addItemToCart(item) {
-    const existingItemIndex = this.cartItems.findIndex(
-      (cartItem) => cartItem.id === item.id
-    );
-
-    if (existingItemIndex !== -1) {
-      this.cartItems[existingItemIndex].quantity += item.quantity;
-    } else {
-      this.cartItems.push(item);
-    }
-
-    this.saveCart();
-    this.renderCartItems();
-    this.updateCartSummary();
-    this.showNotification("Game added to cart!", "success");
-  }
-
-  saveCart() {
-    localStorage.setItem("pixelVaultCart", JSON.stringify(this.cartItems));
-  }
-
-  shuffleArray(array) {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }
-
-  showNotification(message, type = "info") {
-    const event = new CustomEvent("showNotification", {
-      detail: { message, type },
-    });
-    window.dispatchEvent(event);
-  }
-}
-
-// Initialize cart page manager when DOM is loaded
-document.addEventListener("DOMContentLoaded", () => {
-  new CartPageManager();
+  cartPageModule.initialize();
 });

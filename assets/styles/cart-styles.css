@@ -1,78 +1,3 @@
-/* Cart Modal Styles - PixelVault Gaming Store */
-.cart-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  backdrop-filter: blur(5px);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all var(--transition-medium);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  color: #1e293b;
-}
-
-.cart-modal-open {
-  opacity: 1;
-  visibility: visible;
-}
-
-.cart-modal-content {
-  padding: 2rem 0;
-}
-
-.cart-modal-header {
-  background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
-  color: white;
-  border-radius: 15px 15px 0 0;
-  padding: 1.5rem 2rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.cart-modal-close {
-  color: #00b4d8;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: color var(--transition-medium);
-}
-
-.cart-modal-close:hover {
-  color: #7209b7;
-}
-
-/* Cart Empty State */
-.cart-empty {
-  padding: 3rem 2rem;
-  text-align: center;
-}
-
-.cart-empty-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-.cart-empty h3 {
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.cart-empty p {
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-}
-
 /* Cart Items */
 .cart-items {
   max-height: 400px;
@@ -247,11 +172,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .cart-modal-content {
-    width: 95%;
-    max-height: 90vh;
-  }
-
   .cart-item {
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -274,16 +194,6 @@
 }
 
 @media (max-width: 480px) {
-  .cart-modal {
-    padding: 1rem;
-  }
-  .cart-modal-header {
-    padding: 1rem 1.5rem;
-    font-size: 1.2rem;
-  }
-  .cart-modal-content {
-    padding: 1rem 0;
-  }
   .cart-item {
     padding: 0.75rem;
   }

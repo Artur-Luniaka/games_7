@@ -170,16 +170,37 @@
   height: 80px;
 }
 
-/* Add your background-image for each ID in your own stylesheet or here */
+/* PNG Images for floating cards */
 #floating-image-1 {
-  background-image: linear-gradient(135deg, #00b4d8, #7209b7);
+  background-image: url("../public/cyberpunk-game.jpg");
 }
-/* 
 #floating-image-2 {
-  background-image: linear-gradient(135deg, #0077b6, #ade8f4);
+  background-image: url("../public/starfield-game.jpg");
 }
-*/
-/* ... etc. for all 10 images */
+#floating-image-3 {
+  background-image: url("../public/baldurs-gate-game.jpg");
+}
+#floating-image-4 {
+  background-image: url("../public/mortal-kombat-game.jpg");
+}
+#floating-image-5 {
+  background-image: url("../public/alan-wake-game.jpg");
+}
+#floating-image-6 {
+  background-image: url("../public/spider-man-game.jpg");
+}
+#floating-image-7 {
+  background-image: url("../public/assassins-creed-game.jpg");
+}
+#floating-image-8 {
+  background-image: url("../public/fifa-game.jpg");
+}
+#floating-image-9 {
+  background-image: url("../public/call-of-duty-game.jpg");
+}
+#floating-image-10 {
+  background-image: url("../public/red-dead-game.jpg");
+}
 
 .floating-image:nth-child(1) {
   top: 5%;
@@ -199,37 +220,37 @@
 .floating-image:nth-child(4) {
   top: 50%;
   right: 15%;
-  animation: float-A 24s linear -11s infinite alternate;
+  animation: float-D 20s ease-in-out -3s infinite alternate;
 }
 .floating-image:nth-child(5) {
-  bottom: 10%;
+  top: 65%;
   left: 5%;
-  animation: float-B 21s ease-in-out -14s infinite alternate;
+  animation: float-E 24s linear -7s infinite alternate;
 }
 .floating-image:nth-child(6) {
-  bottom: 25%;
-  right: 25%;
-  animation: float-C 26s linear -17s infinite alternate;
+  top: 25%;
+  left: 60%;
+  animation: float-F 19s ease-in-out -1s infinite alternate;
 }
 .floating-image:nth-child(7) {
-  top: 60%;
-  left: 30%;
-  animation: float-A 19s ease-in-out -20s infinite alternate;
+  top: 75%;
+  right: 25%;
+  animation: float-G 21s linear -4s infinite alternate;
 }
 .floating-image:nth-child(8) {
-  top: 75%;
-  right: 10%;
-  animation: float-B 23s linear -23s infinite alternate;
+  top: 10%;
+  left: 45%;
+  animation: float-H 23s ease-in-out -6s infinite alternate;
 }
 .floating-image:nth-child(9) {
-  bottom: 5%;
-  left: 40%;
-  animation: float-C 20s ease-in-out -26s infinite alternate;
+  top: 40%;
+  right: 35%;
+  animation: float-I 17s linear -9s infinite alternate;
 }
 .floating-image:nth-child(10) {
-  bottom: 40%;
-  right: 5%;
-  animation: float-A 27s linear -29s infinite alternate;
+  top: 60%;
+  left: 35%;
+  animation: float-J 26s ease-in-out -10s infinite alternate;
 }
 
 @keyframes float-A {
@@ -263,6 +284,111 @@
 }
 
 @keyframes float-C {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(20px, 20px) scale(1.1) rotate(10deg);
+    z-index: 3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes float-D {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(20px, 20px) scale(1.1) rotate(10deg);
+    z-index: 3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes float-E {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(20px, 20px) scale(1.1) rotate(10deg);
+    z-index: 3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes float-F {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(20px, 20px) scale(1.1) rotate(10deg);
+    z-index: 3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes float-G {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(20px, 20px) scale(1.1) rotate(10deg);
+    z-index: 3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes float-H {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(20px, 20px) scale(1.1) rotate(10deg);
+    z-index: 3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes float-I {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(20px, 20px) scale(1.1) rotate(10deg);
+    z-index: 3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes float-J {
   0% {
     transform: translate(0, 0) scale(1) rotate(0deg);
     z-index: 1;
