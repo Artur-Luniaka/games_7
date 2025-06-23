@@ -20,7 +20,7 @@ const headerModule = {
             <header class="site-header">
                 <div class="header-container">
                     <div class="header-logo">
-                        <a href="index.html" class="logo-link">
+                        <a href="./" class="logo-link">
                             <img src="assets/public/logo-icon.png" alt="PixelVault Gaming Store" class="logo-main-icon">
                         </a>
                     </div>
@@ -28,10 +28,10 @@ const headerModule = {
                     <nav class="header-navigation" role="navigation">
                         <ul class="nav-menu">
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link"><span class="gradient-text">Main</span></a>
+                                <a href="./" class="nav-link"><span class="gradient-text">Main</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="index.html#trending-section" class="nav-link nav-link-anchor"><span class="gradient-text">Trends</span></a>
+                                <a href="./#trending-section" class="nav-link nav-link-anchor"><span class="gradient-text">Trends</span></a>
                             </li>
                             <li class="nav-item">
                                 <a href="catalog.html" class="nav-link"><span class="gradient-text">Games</span></a>
@@ -62,10 +62,10 @@ const headerModule = {
                 <div class="mobile-menu" id="mobile-menu">
                     <ul class="mobile-nav-menu">
                         <li class="mobile-nav-item">
-                            <a href="index.html" class="mobile-nav-link"><span class="gradient-text">Main</span></a>
+                            <a href="./" class="mobile-nav-link"><span class="gradient-text">Main</span></a>
                         </li>
                         <li class="mobile-nav-item">
-                            <a href="index.html#trending-section" class="mobile-nav-link nav-link-anchor"><span class="gradient-text">Trends</span></a>
+                            <a href="./#trending-section" class="mobile-nav-link nav-link-anchor"><span class="gradient-text">Trends</span></a>
                         </li>
                         <li class="mobile-nav-item">
                             <a href="catalog.html" class="mobile-nav-link"><span class="gradient-text">Games</span></a>

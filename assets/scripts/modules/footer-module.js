@@ -26,7 +26,7 @@ const footerModule = {
                             <ul class="footer-links">
                                 <li><a href="catalog.html" class="footer-link">Games</a></li>
                                 <li><a href="about.html" class="footer-link">About Us</a></li>
-                                <li><a href="index.html#trending-section" class="footer-link">Trends</a></li>
+                                <li><a href="./#trending-section" class="footer-link">Trends</a></li>
                             </ul>
                         </div>
                         
@@ -44,7 +44,7 @@ const footerModule = {
                 
                 <div class="footer-bottom">
                     <p class="copyright">
-                        © 2024 PixelVault Gaming Store. All rights reserved.
+                        © 2025 BeyondProgressivePlay.com | All rights reserved.
                     </p>
                 </div>
             </footer>
