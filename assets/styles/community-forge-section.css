@@ -1,0 +1,102 @@
+/* Community Forge Section - Homepage Only */
+.community-forge-section {
+  background-color: #0c0c0c;
+  padding: 80px 0;
+  color: #fff;
+}
+
+.community-forge-section .section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.community-forge-section .section-title {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.community-forge-section .section-subtitle {
+  font-size: 1.2rem;
+  color: #a0a0a0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.community-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid #333;
+}
+
+/* Review Card Styles */
+.review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.review-card blockquote {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  font-style: italic;
+  color: #d0d0d0;
+  border-left: 3px solid #6f00ff;
+  padding-left: 20px;
+}
+
+.review-card cite {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.review-card cite img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+  border: 2px solid #6f00ff;
+}
+
+/* Image Card Styles */
+.image-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.community-highlight-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.image-card:hover .community-highlight-img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .community-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-card {
+    min-height: 300px;
+  }
+}

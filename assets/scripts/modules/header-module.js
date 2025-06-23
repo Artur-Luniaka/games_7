@@ -28,7 +28,10 @@ const headerModule = {
                     <nav class="header-navigation" role="navigation">
                         <ul class="nav-menu">
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link"><span class="gradient-text">Home</span></a>
+                                <a href="index.html" class="nav-link"><span class="gradient-text">Main</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="index.html#trending-section" class="nav-link nav-link-anchor"><span class="gradient-text">Trends</span></a>
                             </li>
                             <li class="nav-item">
                                 <a href="catalog.html" class="nav-link"><span class="gradient-text">Games</span></a>
@@ -59,7 +62,10 @@ const headerModule = {
                 <div class="mobile-menu" id="mobile-menu">
                     <ul class="mobile-nav-menu">
                         <li class="mobile-nav-item">
-                            <a href="index.html" class="mobile-nav-link"><span class="gradient-text">Home</span></a>
+                            <a href="index.html" class="mobile-nav-link"><span class="gradient-text">Main</span></a>
+                        </li>
+                        <li class="mobile-nav-item">
+                            <a href="index.html#trending-section" class="mobile-nav-link nav-link-anchor"><span class="gradient-text">Trends</span></a>
                         </li>
                         <li class="mobile-nav-item">
                             <a href="catalog.html" class="mobile-nav-link"><span class="gradient-text">Games</span></a>
@@ -114,6 +120,36 @@ const headerModule = {
         this.closeMobileMenu();
       }
     });
+
+    // Плавная прокрутка для якорных ссылок
+    setTimeout(() => {
+      document
+        .querySelectorAll(".nav-link-anchor, .mobile-nav-link.nav-link-anchor")
+        .forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+            const [path, hash] = href.split("#");
+
+            if (
+              window.location.pathname.endsWith(path) ||
+              (window.location.pathname === "/" && path === "index.html")
+            ) {
+              // Если мы на той же странице, что и ссылка
+              if (hash) {
+                e.preventDefault();
+                const target = document.getElementById(hash);
+                if (target) {
+                  target.scrollIntoView({ behavior: "smooth" });
+                }
+                if (window.innerWidth <= 768) {
+                  headerModule.closeMobileMenu();
+                }
+              }
+            }
+            // Иначе, просто переходим по ссылке (на другую страницу)
+          });
+        });
+    }, 0);
   },
 
   toggleMobileMenu() {

@@ -148,14 +148,14 @@ const newsletterHandlerModule = {
     // Store subscription in localStorage
     this.saveNewsletterSubscription(email);
 
-    // Import notification module to show success
-    import("./notification-system.js").then((module) => {
-      const notificationSystem = module.default;
-      notificationSystem.showSuccess(
-        "Successfully subscribed to newsletter!",
-        5000
-      );
-    });
+    // Отключено: глобальное всплывающее уведомление
+    // import("./notification-system.js").then((module) => {
+    //   const notificationSystem = module.default;
+    //   notificationSystem.showSuccess(
+    //     "Successfully subscribed to newsletter!",
+    //     5000
+    //   );
+    // });
   },
 
   handleNewsletterError(form) {
@@ -164,34 +164,38 @@ const newsletterHandlerModule = {
     // Show error message
     this.showErrorMessage(form);
 
-    // Import notification module to show error
-    import("./notification-system.js").then((module) => {
-      const notificationSystem = module.default;
-      notificationSystem.showError(
-        "Failed to subscribe. Please try again.",
-        5000
-      );
-    });
+    // Отключено: глобальное всплывающее уведомление
+    // import("./notification-system.js").then((module) => {
+    //   const notificationSystem = module.default;
+    //   notificationSystem.showError(
+    //     "Failed to subscribe. Please try again.",
+    //     5000
+    //   );
+    // });
   },
 
   showSuccessMessage(form, email) {
+    const successContainer = form.parentNode;
     const successMessage = document.createElement("div");
     successMessage.className = "newsletter-success";
     successMessage.innerHTML = `
-            <div class="success-content">
-                <span class="success-icon">✅</span>
-                <div class="success-text">
-                    <h4>Successfully Subscribed!</h4>
-                    <p>Thank you for subscribing to our newsletter. We'll keep you updated with the latest gaming news and exclusive deals.</p>
-                </div>
-            </div>
-        `;
-
-    // Replace form with success message
+      <div class="success-icon" style="margin: 0 auto 0.7rem auto;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="6" fill="url(#success-gradient)"/>
+          <path d="M16.25 8.25L10.5 14L7.75 11.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="success-gradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#00b894"/>
+              <stop offset="1" stop-color="#00b4d8"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h4 style="color:#fff; font-size:1rem; font-weight:700; margin:0 0 0.3rem 0;">Thank you for subscribing!</h4>
+      <p style="color:#eaf6ff; font-size:0.9rem; margin:0;">You'll get the latest gaming news and deals by email.</p>
+    `;
     form.style.display = "none";
-    form.parentNode.appendChild(successMessage);
-
-    // Animate in
+    successContainer.appendChild(successMessage);
     setTimeout(() => {
       successMessage.classList.add("success-show");
     }, 10);

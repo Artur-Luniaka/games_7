@@ -10,14 +10,14 @@
     />
     <link rel="stylesheet" href="assets/styles/core-styles.css" />
     <link rel="stylesheet" href="assets/styles/header-styles.css" />
-    <link rel="stylesheet" href="assets/styles/footer-styles.css" />
-    <link rel="stylesheet" href="assets/styles/cart-styles.css" />
     <link rel="stylesheet" href="assets/styles/hero-section.css" />
-    <link rel="stylesheet" href="assets/styles/featured-games.css" />
-    <link rel="stylesheet" href="assets/styles/gaming-categories.css" />
-    <link rel="stylesheet" href="assets/styles/platform-showcase.css" />
-    <link rel="stylesheet" href="assets/styles/community-highlights.css" />
+    <link rel="stylesheet" href="assets/styles/armory-section.css" />
+    <link rel="stylesheet" href="assets/styles/trending-section.css" />
+    <link rel="stylesheet" href="assets/styles/advantage-section.css" />
+    <link rel="stylesheet" href="assets/styles/community-forge-section.css" />
     <link rel="stylesheet" href="assets/styles/newsletter-signup.css" />
+    <link rel="stylesheet" href="assets/styles/footer-styles.css" />
+    <link rel="icon" href="assets/public/logo-icon.png" type="image/x-icon" />
   </head>
   <body>
     <div id="header-container"></div>
@@ -33,7 +33,9 @@
             </p>
             <div class="hero-actions">
               <a href="catalog.html" class="hero-cta primary">Explore Games</a>
-              <a href="#" class="hero-cta secondary">View Deals</a>
+              <a href="#trending-section" class="hero-cta secondary"
+                >View What's Hot</a
+              >
             </div>
           </div>
           <div class="hero-visual">
@@ -53,113 +55,147 @@
         </div>
       </section>
 
-      <section id="featured-games" class="featured-games">
+      <!-- Section 1: The Armory -->
+      <section id="armory-section" class="armory-section">
         <div class="section-header">
-          <h2 class="section-title">Featured Titles</h2>
+          <h2 class="section-title">The Armory</h2>
           <p class="section-subtitle">
-            Handpicked games that define the current gaming landscape
+            Exclusive editions and early access titles, forged for true gamers.
           </p>
         </div>
-        <div class="games-grid" id="featured-games-grid"></div>
+        <div class="armory-carousel-wrapper">
+          <div class="armory-carousel" id="armory-carousel-grid">
+            <!-- Game cards will be dynamically loaded here -->
+          </div>
+        </div>
       </section>
 
-      <section id="gaming-categories" class="gaming-categories">
+      <!-- Section 2: Trending Now -->
+      <section id="trending-section" class="trending-section">
         <div class="section-header">
-          <h2 class="section-title">Gaming Categories</h2>
-          <p class="section-subtitle">Find your perfect genre match</p>
+          <h2 class="section-title">Trending Now</h2>
+          <p class="section-subtitle">
+            See what's capturing the zeitgeist in the gaming world.
+          </p>
         </div>
-        <div class="categories-container">
-          <div class="category-card action-adventure">
-            <div class="category-icon">⚔️</div>
-            <h3>Action & Adventure</h3>
-            <p>Epic journeys and thrilling combat</p>
+        <div class="trending-grid">
+          <div class="trending-card large">
+            <span class="trending-badge hot">�� Top Seller</span>
+            <img
+              src="assets/public/trending-game-1.jpg"
+              alt="Top Selling Game"
+            />
+            <div class="trending-overlay">
+              <h3>Starfield Odyssey</h3>
+              <p>The year's most anticipated space RPG is finally here.</p>
+            </div>
           </div>
-          <div class="category-card rpg">
-            <div class="category-icon">🎭</div>
-            <h3>RPG</h3>
-            <p>Deep stories and character progression</p>
+          <div class="trending-card">
+            <span class="trending-badge wishlist">⭐ Most Wishlisted</span>
+            <img
+              src="assets/public/trending-game-2.jpg"
+              alt="Most Wishlisted Game"
+            />
+            <div class="trending-overlay">
+              <h3>Cyber-Runner 2088</h3>
+              <p>Pre-order the sequel to the legendary cyberpunk saga.</p>
+            </div>
           </div>
-          <div class="category-card strategy">
-            <div class="category-icon">🧠</div>
-            <h3>Strategy</h3>
-            <p>Strategic thinking and tactical gameplay</p>
-          </div>
-          <div class="category-card sports">
-            <div class="category-icon">⚽</div>
-            <h3>Sports</h3>
-            <p>Competitive athletic excellence</p>
-          </div>
-          <div class="category-card indie">
-            <div class="category-icon">💎</div>
-            <h3>Indie</h3>
-            <p>Innovative and creative experiences</p>
-          </div>
-          <div class="category-card horror">
-            <div class="category-icon">👻</div>
-            <h3>Horror</h3>
-            <p>Spine-chilling suspense</p>
+          <div class="trending-card">
+            <span class="trending-badge live">🔴 Now Streaming</span>
+            <img
+              src="assets/public/trending-game-3.jpg"
+              alt="Popular Streaming Game"
+            />
+            <div class="trending-overlay">
+              <h3>Mortal Arena X</h3>
+              <p>Watch top players compete in the new season.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="platform-showcase" class="platform-showcase">
-        <div class="platform-content">
-          <div class="platform-info">
-            <h2>Gaming Platforms</h2>
-            <p>
-              Whether you're a PC master or Xbox enthusiast, we've got you
-              covered with optimized experiences for every platform.
+      <!-- Section 3: The PixelVault Advantage -->
+      <section id="advantage-section" class="advantage-section">
+        <div class="advantage-container">
+          <div class="advantage-content">
+            <h2 class="section-title">The PixelVault Advantage</h2>
+            <p class="section-subtitle">
+              More than a store. It's an ecosystem built for you.
             </p>
-            <div class="platform-features">
-              <div class="feature">
-                <span class="feature-icon">🖥️</span>
-                <span>PC Gaming</span>
-              </div>
-              <div class="feature">
-                <span class="feature-icon">🎮</span>
-                <span>Xbox Series</span>
-              </div>
-              <div class="feature">
-                <span class="feature-icon">⚡</span>
-                <span>Cross-Platform</span>
-              </div>
-            </div>
+            <ul class="advantage-list">
+              <li>
+                <span class="advantage-icon">⚡</span>
+                <div class="advantage-text">
+                  <span class="advantage-title">Instant Access Vault</span>
+                  <span class="advantage-desc"
+                    >Your games, ready to play instantly on purchase. No
+                    waiting.</span
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="advantage-icon">☁️</span>
+                <div class="advantage-text">
+                  <span class="advantage-title">Unified Cloud Saves</span>
+                  <span class="advantage-desc"
+                    >Start on PC, continue on Xbox. Your progress is always with
+                    you.</span
+                  >
+                </div>
+              </li>
+              <li>
+                <span class="advantage-icon">🤝</span>
+                <div class="advantage-text">
+                  <span class="advantage-title">Gamer's Hub Connectivity</span>
+                  <span class="advantage-desc"
+                    >Connect with friends, track achievements, and share your
+                    best moments.</span
+                  >
+                </div>
+              </li>
+            </ul>
           </div>
-          <div class="platform-visual">
-            <div class="platform-devices">
-              <div class="device pc-device"></div>
-              <div class="device xbox-device"></div>
-            </div>
+          <div class="advantage-visual">
+            <img
+              src="assets/public/advantage-vault.jpg"
+              alt="Vault"
+              class="advantage-img advantage-img-vault"
+            />
+            <div class="visual-cloud-icon">☁️</div>
+            <img
+              src="assets/public/advantage-cloud.jpg"
+              alt="Cloud"
+              class="advantage-img advantage-img-cloud"
+            />
           </div>
         </div>
       </section>
 
-      <section id="community-highlights" class="community-highlights">
+      <!-- Section 4: From the Community Forge -->
+      <section id="community-forge-section" class="community-forge-section">
         <div class="section-header">
-          <h2 class="section-title">Community Highlights</h2>
-          <p class="section-subtitle">What our gaming community loves</p>
+          <h2 class="section-title">From the Community Forge</h2>
+          <p class="section-subtitle">Powered by players. Celebrated by us.</p>
         </div>
-        <div class="highlights-grid">
-          <div class="highlight-card">
-            <div class="highlight-image"></div>
-            <div class="highlight-content">
-              <h3>Player Reviews</h3>
-              <p>Real feedback from real gamers</p>
-            </div>
+        <div class="community-grid">
+          <div class="community-card review-card">
+            <blockquote>
+              "PixelVault isn't just a store, it's the heart of my gaming
+              library. The exclusives are top-notch and the community features
+              keep me coming back."
+            </blockquote>
+            <cite>
+              <img src="assets/public/avatar-1.jpg" alt="User avatar" />
+              <span>AloyFan_91</span>
+            </cite>
           </div>
-          <div class="highlight-card">
-            <div class="highlight-image"></div>
-            <div class="highlight-content">
-              <h3>Gaming Events</h3>
-              <p>Join tournaments and competitions</p>
-            </div>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-image"></div>
-            <div class="highlight-content">
-              <h3>Developer Spotlights</h3>
-              <p>Meet the creators behind the games</p>
-            </div>
+          <div class="community-card image-card">
+            <img
+              src="assets/public/community-highlight.jpg"
+              alt="Community highlight"
+              class="community-highlight-img"
+            />
           </div>
         </div>
       </section>
@@ -169,9 +205,15 @@
           <h2>Stay in the Loop</h2>
           <p>
             Get notified about new releases, exclusive deals, and gaming news
+            delivered straight to your inbox.
           </p>
           <form class="newsletter-form" id="newsletter-form">
-            <input type="email" placeholder="Enter your email" required />
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              required
+              id="newsletter-email"
+            />
             <button type="submit">Subscribe</button>
           </form>
         </div>
@@ -180,8 +222,7 @@
 
     <div id="footer-container"></div>
 
-    <div id="notification-container"></div>
-
+    <!-- Scripts -->
     <script
       type="module"
       src="assets/scripts/modules/header-module.js"
@@ -196,15 +237,15 @@
     ></script>
     <script
       type="module"
-      src="assets/scripts/modules/games-catalog.js"
-    ></script>
-    <script
-      type="module"
-      src="assets/scripts/modules/notification-system.js"
+      src="assets/scripts/modules/homepage-module.js"
     ></script>
     <script
       type="module"
       src="assets/scripts/modules/newsletter-handler.js"
+    ></script>
+    <script
+      type="module"
+      src="assets/scripts/modules/notification-system.js"
     ></script>
   </body>
 </html>
